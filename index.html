@@ -3,309 +3,744 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="False Eyelash World Factory - Ultra-low prices, premium quality. Wholesale clearance, high-end customization, OEM manufacturing. Global orders accepted.">
-    <meta name="keywords" content="false eyelashes, eyelash factory, wholesale eyelashes, custom eyelashes, OEM eyelashes, mink lashes, 3D lashes">
-    <meta name="author" content="False Eyelash World Factory">
+    <meta name="description" content="Premium Eyelash Manufacturer - Factory Direct Wholesale. Best bulk prices globally. Various styles from natural to dramatic. ISO certified facility.">
+    <meta name="keywords" content="eyelash manufacturer, wholesale eyelashes, bulk eyelashes, factory direct, mink lashes, 3D lashes, volume lashes">
+    <title>Premium Eyelash Manufacturer | Factory Direct Wholesale - Best Bulk Prices</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="False Eyelash World Factory - Premium Quality at Factory Prices">
-    <meta property="og:description" content="Ultra-low prices, premium quality. Wholesale clearance, high-end customization, OEM manufacturing.">
-    <meta property="og:image" content="./images/og-image.jpg">
+        :root {
+            --luxury-gold: #D4AF37;
+            --rose-gold: #B76E79;
+            --deep-purple: #4A148C;
+            --soft-pink: #FFE4E1;
+            --charcoal: #2C2C2C;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+        }
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="False Eyelash World Factory">
-    <meta property="twitter:description" content="Premium false eyelashes at factory prices. Global shipping available.">
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            overflow-x: hidden;
+        }
 
-    <title>False Eyelash World Factory | Premium Quality at Factory Prices</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--rose-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--rose-gold));
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section with Video */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(74, 20, 140, 0.7), rgba(212, 175, 55, 0.5));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            max-width: 1000px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            letter-spacing: 3px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: fadeInUp 1.4s ease;
+        }
+
+        .btn {
+            padding: 18px 45px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--luxury-gold), #F4D03F);
+            color: var(--charcoal);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--charcoal);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 50px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--rose-gold));
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Factory Section */
+        .factory-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .factory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .factory-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s;
+        }
+
+        .factory-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .factory-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .factory-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .factory-card-content {
+            padding: 30px;
+        }
+
+        .factory-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--charcoal);
+        }
+
+        .factory-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Products Section */
+        .products-section {
+            background: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 35px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, var(--luxury-gold), #F4D03F);
+            color: var(--charcoal);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Features Section */
+        .features-section {
+            background: linear-gradient(135deg, var(--deep-purple) 0%, #7B1FA2 100%);
+            color: white;
+        }
+
+        .features-section .section-title,
+        .features-section .section-subtitle {
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* Highlights Section */
+        .highlights-section {
+            background: var(--soft-pink);
+            text-align: center;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .highlight-item {
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .highlight-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--rose-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .highlight-text {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--light-gray);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--luxury-gold);
+        }
+
+        .contact-card p,
+        .contact-card a {
+            font-size: 1.1rem;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .contact-card a:hover {
+            color: var(--luxury-gold);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        footer p {
+            font-size: 1rem;
+            margin: 10px 0;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .factory-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-    <!-- Language Selector -->
-    <div class="language-selector">
-        <select id="languageSelect" onchange="changeLanguage(this.value)">
-            <option value="en">English</option>
-            <option value="zh">中文</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="it">Italiano</option>
-            <option value="pt">Português</option>
-            <option value="ru">Русский</option>
-            <option value="ar">العربية</option>
-            <option value="ja">日本語</option>
-            <option value="ko">한국어</option>
-            <option value="th">ไทย</option>
-            <option value="vi">Tiếng Việt</option>
-            <option value="id">Bahasa Indonesia</option>
-            <option value="ms">Bahasa Melayu</option>
-            <option value="tl">Filipino</option>
-            <option value="my">မြန်မာ</option>
-            <option value="km">ខ្មែរ</option>
-            <option value="lo">ລາວ</option>
-        </select>
-    </div>
-
-    <!-- Header -->
-    <header>
-        <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <h1 data-i18n="siteName">False Eyelash World Factory</h1>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="#home" data-i18n="navHome">Home</a></li>
-                    <li><a href="#products" data-i18n="navProducts">Products</a></li>
-                    <li><a href="#services" data-i18n="navServices">Services</a></li>
-                    <li><a href="#about" data-i18n="navAbout">About</a></li>
-                    <li><a href="#contact" data-i18n="navContact">Contact</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">PREMIUM LASHES</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#factory">Factory</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#features">Why Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="video.mp4" type="video/mp4">
+        </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title" data-i18n="heroTitle">Premium False Eyelashes</h1>
-            <p class="hero-subtitle" data-i18n="heroSubtitle">Ultra-Low Prices • Premium Quality • Global Shipping</p>
-            <div class="hero-buttons">
-                <a href="#products" class="btn btn-primary" data-i18n="btnShopNow">Shop Now</a>
-                <a href="#contact" class="btn btn-secondary" data-i18n="btnContact">Contact Us</a>
+            <h1>PREMIUM EYELASHES</h1>
+            <p class="hero-subtitle">Factory Direct • Best Bulk Prices Globally • Various Styles</p>
+            <div class="cta-buttons">
+                <a href="#products" class="btn btn-primary">View Collection</a>
+                <a href="#contact" class="btn btn-secondary">Get Quote</a>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3 data-i18n="featurePrice">Factory Direct Prices</h3>
-                    <p data-i18n="featurePriceDesc">Ultra-low prices with no middleman markup</p>
+    <!-- Factory Section -->
+    <section id="factory" class="factory-section">
+        <h2 class="section-title">Our Manufacturing Excellence</h2>
+        <p class="section-subtitle">ISO Certified Facility • Advanced Technology • Quality Assurance</p>
+        <div class="factory-grid">
+            <div class="factory-card">
+                <img src="images/工厂外部.jpg" alt="Factory Exterior">
+                <div class="factory-card-content">
+                    <h3>🏭 Modern Facility</h3>
+                    <p>State-of-the-art 5,000+ sqm manufacturing facility with ISO 9001 certification. Our factory combines traditional craftsmanship with cutting-edge technology.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">✨</div>
-                    <h3 data-i18n="featureQuality">Premium Quality</h3>
-                    <p data-i18n="featureQualityDesc">High-end materials and craftsmanship</p>
+            </div>
+            <div class="factory-card">
+                <img src="images/厂区内部.jpg" alt="Production Workshop">
+                <div class="factory-card-content">
+                    <h3>⚙️ Production Excellence</h3>
+                    <p>Clean, organized production environment with strict quality control. Daily capacity of 500+ units maintaining consistent premium standards.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
-                    <h3 data-i18n="featureGlobal">Global Shipping</h3>
-                    <p data-i18n="featureGlobalDesc">Worldwide delivery available</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3 data-i18n="featureCustom">Custom Design</h3>
-                    <p data-i18n="featureCustomDesc">OEM and private label services</p>
+            </div>
+            <div class="factory-card">
+                <img src="images/发货.jpg" alt="Global Shipping">
+                <div class="factory-card-content">
+                    <h3>🌍 Worldwide Delivery</h3>
+                    <p>Fast and reliable international shipping to 50+ countries. Secure packaging with full tracking for every order.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section id="products" class="products">
-        <div class="container">
-            <h2 class="section-title" data-i18n="productsTitle">Our Products</h2>
-            <p class="section-subtitle" data-i18n="productsSubtitle">Discover our premium collection</p>
+    <section id="products" class="products-section">
+        <h2 class="section-title">Our Premium Collection</h2>
+        <p class="section-subtitle">Various Styles from Natural to Dramatic • 100% Handmade • Premium Materials</p>
+        <div class="products-grid" id="productsGrid">
+            <div class="loading">Loading premium products...</div>
+        </div>
+    </section>
 
-            <div class="product-grid">
-                <!-- Product cards will be dynamically loaded here -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="./images/product-1.jpg" alt="3D Mink Lashes" loading="lazy">
-                        <div class="product-badge" data-i18n="badgeNew">New</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 data-i18n="product1Name">3D Mink Lashes</h3>
-                        <p data-i18n="product1Desc">Luxurious 3D mink false eyelashes</p>
-                        <div class="product-price">
-                            <span class="price" data-i18n="priceContact">Contact for Price</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="./images/product-2.jpg" alt="Volume Lashes" loading="lazy">
-                        <div class="product-badge hot" data-i18n="badgeHot">Hot</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 data-i18n="product2Name">Volume Lashes</h3>
-                        <p data-i18n="product2Desc">Dramatic volume false eyelashes</p>
-                        <div class="product-price">
-                            <span class="price" data-i18n="priceContact">Contact for Price</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="./images/product-3.jpg" alt="Natural Lashes" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 data-i18n="product3Name">Natural Lashes</h3>
-                        <p data-i18n="product3Desc">Everyday natural false eyelashes</p>
-                        <div class="product-price">
-                            <span class="price" data-i18n="priceContact">Contact for Price</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="./images/product-4.jpg" alt="Magnetic Lashes" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 data-i18n="product4Name">Magnetic Lashes</h3>
-                        <p data-i18n="product4Desc">Easy-apply magnetic false eyelashes</p>
-                        <div class="product-price">
-                            <span class="price" data-i18n="priceContact">Contact for Price</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <h2 class="section-title">Why Choose Us</h2>
+        <p class="section-subtitle">Your Trusted Partner for Premium Eyelash Products</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Best Bulk Prices</h3>
+                <p>Factory direct pricing with no middlemen. Bulk orders receive the lowest prices globally. Volume discounts available.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>Premium Quality</h3>
+                <p>100% handmade with finest materials. Various styles from natural everyday looks to dramatic volume lashes.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Variety of Styles</h3>
+                <p>Natural, wispy, dramatic, volume, magnetic, 3D, 5D styles. Custom designs and OEM services available.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
+                <h3>Fast Shipping</h3>
+                <p>Express delivery worldwide. Secure packaging ensures products arrive in perfect condition with full tracking.</p>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title" data-i18n="servicesTitle">Our Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">📦</div>
-                    <h3 data-i18n="service1Title">Wholesale Clearance</h3>
-                    <p data-i18n="service1Desc">Ultra-low prices on bulk orders and clearance stock</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">👑</div>
-                    <h3 data-i18n="service2Title">High-End Customization</h3>
-                    <p data-i18n="service2Desc">Premium custom designs tailored to your brand</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🏭</div>
-                    <h3 data-i18n="service3Title">OEM Manufacturing</h3>
-                    <p data-i18n="service3Desc">Complete OEM and private label production services</p>
-                </div>
+    <!-- Highlights Section -->
+    <section class="highlights-section">
+        <h2 class="section-title">Our Achievements</h2>
+        <div class="highlights-grid">
+            <div class="highlight-item">
+                <div class="highlight-number">10+</div>
+                <div class="highlight-text">Years Experience</div>
             </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 data-i18n="aboutTitle">About Us</h2>
-                    <p data-i18n="aboutText1">We are a leading false eyelash manufacturer with years of experience in the beauty industry. Our factory combines traditional craftsmanship with modern technology to produce premium quality false eyelashes at competitive prices.</p>
-                    <p data-i18n="aboutText2">We serve clients worldwide, from individual beauty enthusiasts to major cosmetic brands. Our commitment to quality, innovation, and customer satisfaction has made us a trusted partner in the global beauty market.</p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <h3>10+</h3>
-                            <p data-i18n="statYears">Years Experience</p>
-                        </div>
-                        <div class="stat">
-                            <h3>50+</h3>
-                            <p data-i18n="statCountries">Countries Served</p>
-                        </div>
-                        <div class="stat">
-                            <h3>1000+</h3>
-                            <p data-i18n="statClients">Happy Clients</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <img src="./images/factory.jpg" alt="Factory" loading="lazy">
-                </div>
+            <div class="highlight-item">
+                <div class="highlight-number">50+</div>
+                <div class="highlight-text">Countries Served</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-number">500+</div>
+                <div class="highlight-text">Daily Capacity</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-number">100%</div>
+                <div class="highlight-text">Quality Guaranteed</div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title" data-i18n="contactTitle">Contact Us</h2>
-            <p class="section-subtitle" data-i18n="contactSubtitle">Get in touch for quotes and inquiries</p>
-
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
-                            <h3 data-i18n="contactEmail">Email</h3>
-                            <a href="mailto:oilsei65799009@gmail.com">oilsei65799009@gmail.com</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">💬</div>
-                        <div>
-                            <h3>Telegram</h3>
-                            <a href="https://t.me/crypto_x_YU" target="_blank">@crypto_x_YU</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🌐</div>
-                        <div>
-                            <h3 data-i18n="contactGlobal">Global Orders</h3>
-                            <p data-i18n="contactGlobalText">We accept orders worldwide</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <input type="text" placeholder="Your Name" data-i18n-placeholder="formName" required>
-                        <input type="email" placeholder="Your Email" data-i18n-placeholder="formEmail" required>
-                        <input type="text" placeholder="Subject" data-i18n-placeholder="formSubject" required>
-                        <textarea rows="5" placeholder="Your Message" data-i18n-placeholder="formMessage" required></textarea>
-                        <button type="submit" class="btn btn-primary" data-i18n="btnSend">Send Message</button>
-                    </form>
-                </div>
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Contact us for wholesale inquiries and bulk orders</p>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">📧</div>
+                <h3>Email</h3>
+                <a href="mailto:oilsei65799009@gmail.com">oilsei65799009@gmail.com</a>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">💬</div>
+                <h3>Telegram</h3>
+                <a href="https://t.me/crypto_x_YU" target="_blank">@crypto_x_YU</a>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">🌐</div>
+                <h3>Global Orders</h3>
+                <p>We accept orders worldwide</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3 data-i18n="siteName">False Eyelash World Factory</h3>
-                    <p data-i18n="footerDesc">Your trusted partner for premium false eyelashes</p>
-                </div>
-                <div class="footer-section">
-                    <h4 data-i18n="footerQuickLinks">Quick Links</h4>
-                    <ul>
-                        <li><a href="#home" data-i18n="navHome">Home</a></li>
-                        <li><a href="#products" data-i18n="navProducts">Products</a></li>
-                        <li><a href="#services" data-i18n="navServices">Services</a></li>
-                        <li><a href="#contact" data-i18n="navContact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4 data-i18n="footerContact">Contact</h4>
-                    <p>Email: oilsei65799009@gmail.com</p>
-                    <p>Telegram: @crypto_x_YU</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 False Eyelash World Factory. All rights reserved.</p>
-            </div>
-        </div>
+        <p>&copy; 2026 Premium Eyelash Manufacturer. All Rights Reserved.</p>
+        <p>Factory Direct Wholesale | Best Bulk Prices Globally | ISO Certified</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Product images array
+        const productImages = [
+            'images/微信图片_20260313040819_865_5.jpg',
+            'images/微信图片_20260313040820_866_5.jpg',
+            'images/微信图片_20260313040822_867_5.jpg',
+            'images/微信图片_20260313040823_868_5.jpg',
+            'images/微信图片_20260313040824_869_5.jpg',
+            'images/微信图片_20260313040825_870_5.jpg',
+            'images/微信图片_20260313040826_871_5.jpg',
+            'images/微信图片_20260313040827_872_5.jpg',
+            'images/微信图片_20260313040829_873_5.jpg',
+            'images/微信图片_20260313040831_874_5.jpg',
+            'images/微信图片_20260313040833_875_5.jpg',
+            'images/微信图片_20260313040835_876_5.jpg',
+            'images/微信图片_20260313040837_877_5.jpg',
+            'images/微信图片_20260313040839_878_5.jpg',
+            'images/微信图片_20260313040842_879_5.jpg',
+            'images/微信图片_20260313040845_880_5.jpg',
+            'images/微信图片_20260313040848_881_5.jpg',
+            'images/微信图片_20260313040849_882_5.jpg',
+            'images/微信图片_20260313040850_883_5.jpg',
+            'images/微信图片_20260313040851_884_5.jpg',
+            'images/微信图片_20260313040852_885_5.jpg'
+        ];
+
+        // Load products dynamically
+        const productsGrid = document.getElementById('productsGrid');
+        productsGrid.innerHTML = '';
+
+        productImages.forEach((img, index) => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div style="position: relative;">
+                    <img src="${img}" alt="Premium Eyelash Style ${index + 1}" loading="lazy">
+                    ${index < 3 ? '<span class="product-badge">Premium</span>' : ''}
+                </div>
+            `;
+            productsGrid.appendChild(card);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Video fallback
+        const video = document.querySelector('.hero-video');
+        video.addEventListener('error', function() {
+            console.log('Video loading...');
+        });
+    </script>
 </body>
 </html>
