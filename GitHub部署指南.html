@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 GitHub Pages 部署指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #24292e 0%, #0366d6 100%);
+            padding: 50px 40px;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        .header p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+        .content {
+            padding: 50px 40px;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 5px solid #0366d6;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+        .step h2 {
+            color: #24292e;
+            font-size: 26px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .step-number {
+            background: #0366d6;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        .step p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .step ol {
+            margin-left: 25px;
+            color: #555;
+        }
+        .step li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            background: #0366d6;
+            color: white;
+            padding: 18px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #0256c7;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(3, 102, 214, 0.3);
+        }
+        .code-box {
+            background: #2c2c2c;
+            color: #4CAF50;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            margin: 20px 0;
+            word-break: break-all;
+            overflow-x: auto;
+        }
+        .success {
+            background: #d4edda;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #28a745;
+            margin: 30px 0;
+        }
+        .success h3 {
+            color: #155724;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .success p {
+            color: #155724;
+            line-height: 1.8;
+        }
+        .warning {
+            background: #fff3cd;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #ffc107;
+            margin: 30px 0;
+        }
+        .warning h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .warning p {
+            color: #856404;
+            line-height: 1.8;
+        }
+        .arrow {
+            font-size: 40px;
+            text-align: center;
+            color: #0366d6;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 GitHub Pages 部署</h1>
+            <p>稳定、免费、永久可用</p>
+        </div>
+
+        <div class="content">
+            <div class="success">
+                <h3>✅ 为什么选择 GitHub Pages？</h3>
+                <p>
+                    ✅ 完全免费，永久使用<br>
+                    ✅ 自动HTTPS加密<br>
+                    ✅ 全球CDN加速<br>
+                    ✅ 稳定可靠，99.9%在线率<br>
+                    ✅ 无需复杂配置
+                </p>
+            </div>
+
+            <div class="step">
+                <h2><span class="step-number">1</span>注册GitHub账号</h2>
+                <p>如果您还没有GitHub账号，请先注册：</p>
+                <a href="https://github.com/signup" target="_blank" class="btn">
+                    📝 注册 GitHub 账号
+                </a>
+                <p style="margin-top: 20px;">填写信息：</p>
+                <ol>
+                    <li>邮箱：oilsei65799009@gmail.com（或您的其他邮箱）</li>
+                    <li>用户名：选择一个喜欢的用户名</li>
+                    <li>密码：设置一个安全的密码</li>
+                    <li>验证邮箱</li>
+                </ol>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="step">
+                <h2><span class="step-number">2</span>创建新仓库</h2>
+                <p>登录GitHub后，创建一个新的仓库：</p>
+                <a href="https://github.com/new" target="_blank" class="btn">
+                    ➕ 创建新仓库
+                </a>
+                <p style="margin-top: 20px;">填写仓库信息：</p>
+                <ol>
+                    <li><strong>Repository name:</strong> eyelash-website</li>
+                    <li><strong>Description:</strong> False Eyelash World Factory Website</li>
+                    <li><strong>Public/Private:</strong> 选择 <strong>Public</strong>（公开）</li>
+                    <li>不要勾选 "Add a README file"</li>
+                    <li>点击 <strong>Create repository</strong></li>
+                </ol>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="step">
+                <h2><span class="step-number">3</span>上传网站文件</h2>
+                <p>创建仓库后，GitHub会显示一个页面。请按照以下步骤操作：</p>
+
+                <p><strong>方法A：使用命令行（推荐）</strong></p>
+                <p>在您的电脑上打开命令提示符（CMD），然后依次运行以下命令：</p>
+
+                <div class="code-box">cd C:\Users\Administrator\lobsterai\project\eyelash-website\deploy-v2</div>
+
+                <div class="code-box">git remote add origin https://github.com/您的用户名/eyelash-website.git</div>
+
+                <div class="code-box">git branch -M main</div>
+
+                <div class="code-box">git push -u origin main</div>
+
+                <p style="margin-top: 20px;"><strong>注意：</strong>将 <code>您的用户名</code> 替换为您的GitHub用户名</p>
+
+                <p style="margin-top: 30px;"><strong>方法B：使用网页上传</strong></p>
+                <ol>
+                    <li>在GitHub仓库页面，点击 "uploading an existing file"</li>
+                    <li>将 deploy-v2 文件夹中的所有文件拖到页面中</li>
+                    <li>点击 "Commit changes"</li>
+                </ol>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="step">
+                <h2><span class="step-number">4</span>启用GitHub Pages</h2>
+                <p>文件上传完成后，启用GitHub Pages：</p>
+                <ol>
+                    <li>在仓库页面，点击 <strong>Settings</strong>（设置）</li>
+                    <li>在左侧菜单找到 <strong>Pages</strong></li>
+                    <li>在 "Source" 下拉菜单中选择 <strong>main</strong> 分支</li>
+                    <li>文件夹选择 <strong>/ (root)</strong></li>
+                    <li>点击 <strong>Save</strong></li>
+                </ol>
+                <p style="margin-top: 20px;">等待1-2分钟，页面会显示您的网站地址：</p>
+                <div class="code-box" style="background: #28a745; color: white;">
+                    https://您的用户名.github.io/eyelash-website/
+                </div>
+            </div>
+
+            <div class="success">
+                <h3>🎉 部署完成！</h3>
+                <p>
+                    您的网站现在已经上线了！<br>
+                    网址格式：<strong>https://您的用户名.github.io/eyelash-website/</strong><br><br>
+                    这个网站将永久免费托管在GitHub上。
+                </p>
+            </div>
+
+            <div class="warning">
+                <h3>⚠️ 如果遇到问题</h3>
+                <p>
+                    1. 确保仓库是 <strong>Public</strong>（公开）的<br>
+                    2. 确保文件夹中包含 <strong>index.html</strong><br>
+                    3. 等待5-10分钟让GitHub Pages生效<br>
+                    4. 清除浏览器缓存后重试
+                </p>
+            </div>
+
+            <div class="step">
+                <h2>📋 部署后的下一步</h2>
+                <ol>
+                    <li><strong>测试网站：</strong>访问您的网站，确保所有功能正常</li>
+                    <li><strong>提交到Google：</strong>在Google Search Console添加您的网站</li>
+                    <li><strong>创建社交媒体：</strong>Instagram、Facebook、Pinterest等</li>
+                    <li><strong>注册B2B平台：</strong>Alibaba.com、Made-in-China.com等</li>
+                    <li><strong>开始推广：</strong>执行社交媒体推广计划</li>
+                </ol>
+            </div>
+
+            <div class="success" style="text-align: center;">
+                <h3>🚀 立即开始</h3>
+                <a href="https://github.com/signup" target="_blank" class="btn" style="margin: 10px;">
+                    注册 GitHub
+                </a>
+                <a href="https://github.com/new" target="_blank" class="btn" style="margin: 10px;">
+                    创建仓库
+                </a>
+            </div>
+
+            <div class="warning">
+                <h3>💡 需要帮助？</h3>
+                <p>
+                    部署完成后，请将您的网站地址发给我，我会帮您：<br>
+                    ✅ 检查网站是否正常运行<br>
+                    ✅ 提交到搜索引擎<br>
+                    ✅ 设置社交媒体推广<br>
+                    ✅ 注册B2B平台
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

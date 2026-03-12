@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 最简单的部署方法</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%);
+            padding: 50px 40px;
+            text-align: center;
+            color: #2c2c2c;
+        }
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .header p {
+            font-size: 22px;
+        }
+        .content {
+            padding: 50px 40px;
+        }
+        .big-step {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .big-step h2 {
+            font-size: 36px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        .step-number {
+            background: white;
+            color: #667eea;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 32px;
+        }
+        .big-step p {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 20px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 22px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .code-box {
+            background: #2c2c2c;
+            color: #4CAF50;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            word-break: break-all;
+            border: 3px solid #4CAF50;
+        }
+        .arrow {
+            font-size: 60px;
+            text-align: center;
+            color: #667eea;
+            margin: 30px 0;
+        }
+        .success {
+            background: #d4edda;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 8px solid #28a745;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .success h3 {
+            color: #155724;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        .success p {
+            color: #155724;
+            line-height: 1.8;
+            font-size: 20px;
+        }
+        .warning {
+            background: #fff3cd;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #ffc107;
+            margin: 30px 0;
+        }
+        .warning h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .warning p {
+            color: #856404;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 超简单部署</h1>
+            <p>只需3步，5分钟完成</p>
+        </div>
+
+        <div class="content">
+            <div class="big-step">
+                <h2><span class="step-number">1</span>创建GitHub仓库</h2>
+                <p>点击下面的按钮，在GitHub上创建一个新仓库：</p>
+                <a href="https://github.com/new" target="_blank" class="btn">
+                    ➕ 立即创建仓库
+                </a>
+                <p style="margin-top: 30px;">在打开的页面上填写：</p>
+                <div class="code-box">
+Repository name: eyelash-website<br>
+选择: Public (公开)<br>
+不要勾选任何其他选项<br>
+点击: Create repository
+                </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="big-step">
+                <h2><span class="step-number">2</span>复制仓库地址</h2>
+                <p>创建完成后，GitHub会显示一个页面。</p>
+                <p>在页面上找到类似这样的地址并复制：</p>
+                <div class="code-box">
+https://github.com/您的用户名/eyelash-website.git
+                </div>
+                <p style="margin-top: 20px;">⚠️ 记住这个地址，下一步要用！</p>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="big-step">
+                <h2><span class="step-number">3</span>告诉我仓库地址</h2>
+                <p>把您复制的仓库地址发给我，格式类似：</p>
+                <div class="code-box">
+https://github.com/您的用户名/eyelash-website.git
+                </div>
+                <p style="margin-top: 20px;">我会立即帮您完成剩余的所有部署工作！</p>
+            </div>
+
+            <div class="success">
+                <h3>🎉 就这么简单！</h3>
+                <p>
+                    您只需要做2件事：<br><br>
+                    1️⃣ 在GitHub创建仓库<br>
+                    2️⃣ 把仓库地址告诉我<br><br>
+                    剩下的我全部帮您搞定！
+                </p>
+            </div>
+
+            <div class="warning">
+                <h3>💡 提示</h3>
+                <p>
+                    如果您还没有GitHub账号，请先访问：<br>
+                    <a href="https://github.com/signup" target="_blank" style="color: #0366d6; font-weight: bold;">https://github.com/signup</a><br>
+                    用您的邮箱注册一个账号（1分钟完成）
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="https://github.com/new" target="_blank" class="btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 28px; padding: 25px 50px;">
+                    🚀 现在就开始
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 重新部署 - 修复401错误</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 50px 40px;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        .header p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+        .content {
+            padding: 50px 40px;
+        }
+        .error-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .error-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .error-box p {
+            color: #856404;
+            line-height: 1.8;
+        }
+        .solution {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .solution h3 {
+            color: #155724;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .solution p {
+            color: #155724;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 5px solid #007bff;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+        }
+        .step h4 {
+            color: #2c2c2c;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .step p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        .folder-path {
+            background: #2c2c2c;
+            color: #4CAF50;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            word-break: break-all;
+            text-align: center;
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        .highlight {
+            background: #e7f3ff;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #2196F3;
+            margin: 30px 0;
+        }
+        .highlight h3 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .highlight ul {
+            color: #0d47a1;
+            line-height: 2;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 修复401错误</h1>
+            <p>重新部署您的网站</p>
+        </div>
+
+        <div class="content">
+            <div class="error-box">
+                <h3>⚠️ 检测到的问题</h3>
+                <p>
+                    您的网站 <strong>https://dazzling-squirrel-cf72db.netlify.app/</strong> 返回401错误。<br>
+                    这通常是因为Netlify部署时出现了权限或配置问题。
+                </p>
+            </div>
+
+            <div class="solution">
+                <h3>✅ 解决方案</h3>
+                <p>我已经创建了一个新的部署包，包含了修复配置文件。</p>
+                <p>请按照下面的步骤重新部署：</p>
+            </div>
+
+            <div class="step">
+                <h4>方案1：在现有网站上重新部署（推荐）</h4>
+                <p><strong>步骤1：</strong> 访问您的Netlify网站管理页面</p>
+                <div class="folder-path" style="background: #667eea;">
+                    https://app.netlify.com/sites/dazzling-squirrel-cf72db/deploys
+                </div>
+
+                <p><strong>步骤2：</strong> 点击页面上的 "Drag and drop your site output folder here" 区域</p>
+
+                <p><strong>步骤3：</strong> 拖放新的部署文件夹：</p>
+                <div class="folder-path">
+                    C:\Users\Administrator\lobsterai\project\eyelash-website\deploy-v2
+                </div>
+
+                <p><strong>步骤4：</strong> 等待部署完成，网站将自动更新</p>
+            </div>
+
+            <div class="step">
+                <h4>方案2：创建全新的网站</h4>
+                <p><strong>步骤1：</strong> 访问Netlify Drop</p>
+                <a href="https://app.netlify.com/drop" target="_blank" class="btn">
+                    🌐 打开 Netlify Drop
+                </a>
+
+                <p style="margin-top: 20px;"><strong>步骤2：</strong> 拖放新的部署文件夹：</p>
+                <div class="folder-path">
+                    C:\Users\Administrator\lobsterai\project\eyelash-website\deploy-v2
+                </div>
+
+                <p><strong>步骤3：</strong> 获得新的网站地址</p>
+            </div>
+
+            <div class="highlight">
+                <h3>📋 deploy-v2 文件夹包含：</h3>
+                <ul>
+                    <li>✅ index.html - 网站主页</li>
+                    <li>✅ styles.css - 样式文件</li>
+                    <li>✅ script.js - 功能脚本</li>
+                    <li>✅ sitemap.xml - 网站地图</li>
+                    <li>✅ robots.txt - 爬虫规则</li>
+                    <li>✅ schema.json - 结构化数据</li>
+                    <li>✅ _redirects - 路由配置（新增）</li>
+                    <li>✅ netlify.toml - Netlify配置（新增）</li>
+                    <li>✅ images/ - 所有产品图片</li>
+                </ul>
+            </div>
+
+            <div class="solution">
+                <h3>🎯 修复内容</h3>
+                <p>
+                    1. 添加了 <strong>_redirects</strong> 文件 - 确保所有路由正确工作<br>
+                    2. 添加了 <strong>netlify.toml</strong> 配置文件 - 指定发布目录<br>
+                    3. 优化了文件结构 - 确保Netlify正确识别
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://app.netlify.com/sites/dazzling-squirrel-cf72db/deploys" target="_blank" class="btn">
+                    🔄 重新部署现有网站
+                </a>
+                <a href="https://app.netlify.com/drop" target="_blank" class="btn" style="margin-left: 20px;">
+                    🆕 创建新网站
+                </a>
+            </div>
+
+            <div class="error-box" style="margin-top: 40px;">
+                <h3>💡 提示</h3>
+                <p>
+                    如果重新部署后仍然有问题，可能需要：<br>
+                    1. 清除浏览器缓存后重试<br>
+                    2. 等待5-10分钟让DNS传播<br>
+                    3. 使用无痕模式访问网站
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
