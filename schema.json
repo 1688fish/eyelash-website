@@ -1,0 +1,96 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "False Eyelash World Factory",
+      "alternateName": "假睫毛世界工厂",
+      "url": "https://yourdomain.com",
+      "logo": "https://yourdomain.com/images/logo.png",
+      "description": "Leading false eyelash manufacturer offering ultra-low prices, premium quality, wholesale clearance, high-end customization, and OEM manufacturing services. Global orders accepted.",
+      "email": "oilsei65799009@gmail.com",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "email": "oilsei65799009@gmail.com",
+        "availableLanguage": ["English", "Spanish", "French", "German", "Chinese", "Japanese", "Korean", "Russian", "Arabic", "Italian", "Portuguese"]
+      },
+      "sameAs": [
+        "https://t.me/crypto_x_YU"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "Global"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Premium False Eyelashes",
+      "description": "High-quality false eyelashes including 3D mink lashes, volume lashes, natural lashes, and magnetic lashes. Factory direct prices with global shipping.",
+      "brand": {
+        "@type": "Brand",
+        "name": "False Eyelash World Factory"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Organization",
+          "name": "False Eyelash World Factory"
+        }
+      },
+      "category": "Beauty & Personal Care > Makeup > Eyes > False Eyelashes"
+    },
+    {
+      "@type": "Service",
+      "serviceType": "OEM Manufacturing",
+      "provider": {
+        "@type": "Organization",
+        "name": "False Eyelash World Factory"
+      },
+      "description": "Complete OEM and private label production services for false eyelashes. High-end customization and wholesale clearance available.",
+      "areaServed": "Worldwide"
+    },
+    {
+      "@type": "WebSite",
+      "name": "False Eyelash World Factory",
+      "url": "https://yourdomain.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://yourdomain.com/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "inLanguage": ["en", "es", "fr", "de", "zh", "ja", "ko", "ru", "ar", "it", "pt"]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://yourdomain.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": "https://yourdomain.com/#products"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Services",
+          "item": "https://yourdomain.com/#services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Contact",
+          "item": "https://yourdomain.com/#contact"
+        }
+      ]
+    }
+  ]
+}
