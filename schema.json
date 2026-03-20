@@ -3,93 +3,213 @@
   "@graph": [
     {
       "@type": "Organization",
-      "name": "False Eyelash World Factory",
-      "alternateName": "假睫毛世界工厂",
-      "url": "https://yourdomain.com",
-      "logo": "https://yourdomain.com/images/logo.png",
-      "description": "Leading false eyelash manufacturer offering ultra-low prices, premium quality, wholesale clearance, high-end customization, and OEM manufacturing services. Global orders accepted.",
-      "email": "oilsei65799009@gmail.com",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "Customer Service",
-        "email": "oilsei65799009@gmail.com",
-        "availableLanguage": ["English", "Spanish", "French", "German", "Chinese", "Japanese", "Korean", "Russian", "Arabic", "Italian", "Portuguese"]
-      },
-      "sameAs": [
-        "https://t.me/crypto_x_YU"
+      "@id": "https://1688fish.github.io/eyelash-website/#organization",
+      "name": "LASHMAITRE - Qingdao Pingdu Eyelash Factory",
+      "alternateName": [
+        "平度睫毛工厂",
+        "中国平度睫毛产业基地",
+        "LASHMAITRE Eyelash Manufacturer",
+        "Pingdu False Eyelash Factory",
+        "青岛平度假睫毛厂"
       ],
+      "url": "https://1688fish.github.io/eyelash-website/",
+      "logo": "https://1688fish.github.io/eyelash-website/images/工厂外部.jpg",
+      "image": "https://1688fish.github.io/eyelash-website/images/工厂外部.jpg",
+      "description": "LASHMAITRE is a professional false eyelash manufacturer and wholesale supplier based in Pingdu, Qingdao, China — the world's largest eyelash production hub. We offer factory-direct pricing with MOQ as low as 50 pairs, OEM/ODM customization, 100+ styles including 3D mink lashes, volume lashes, natural lashes, dramatic lashes, and magnetic lashes. Best bulk prices globally. Trusted by buyers from Cambodia, USA, Europe, Middle East, and Southeast Asia.",
+      "foundingDate": "2010",
+      "numberOfEmployees": {
+        "@type": "QuantitativeValue",
+        "value": "200"
+      },
+      "email": "oilsei65799009@gmail.com",
       "address": {
         "@type": "PostalAddress",
-        "addressCountry": "Global"
+        "addressLocality": "Pingdu",
+        "addressRegion": "Qingdao, Shandong",
+        "addressCountry": "CN",
+        "description": "Pingdu City, Qingdao, Shandong Province, China - World's largest false eyelash manufacturing base"
+      },
+      "areaServed": ["Worldwide", "Cambodia", "USA", "Europe", "Southeast Asia", "Middle East", "Australia"],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "Sales",
+          "email": "oilsei65799009@gmail.com",
+          "availableLanguage": ["English", "Chinese", "Khmer", "Spanish", "French", "Arabic", "Russian", "Japanese", "Korean", "Vietnamese", "Thai"]
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "Customer Service",
+          "url": "https://t.me/pangtouyu999"
+        }
+      ],
+      "sameAs": [
+        "https://t.me/pangtouyu999",
+        "https://1688fish.github.io/eyelash-website/"
+      ],
+      "knowsAbout": [
+        "False Eyelash Manufacturing", "Wholesale Eyelashes", "OEM Eyelash Production",
+        "Mink Lashes", "3D Lashes", "Volume Lashes", "Magnetic Lashes",
+        "Eyelash Packaging", "Private Label Cosmetics"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "LASHMAITRE False Eyelash Catalog",
+        "itemListElement": [
+          {"@type": "OfferCatalog", "name": "3D Mink Lashes"},
+          {"@type": "OfferCatalog", "name": "Volume Lashes"},
+          {"@type": "OfferCatalog", "name": "Natural Lashes"},
+          {"@type": "OfferCatalog", "name": "Dramatic Lashes"},
+          {"@type": "OfferCatalog", "name": "Magnetic Lashes"},
+          {"@type": "OfferCatalog", "name": "Strip Lashes"},
+          {"@type": "OfferCatalog", "name": "Wispy Lashes"},
+          {"@type": "OfferCatalog", "name": "Colored Lashes"},
+          {"@type": "OfferCatalog", "name": "Custom OEM Lashes"}
+        ]
       }
     },
     {
+      "@type": "LocalBusiness",
+      "@id": "https://1688fish.github.io/eyelash-website/#localbusiness",
+      "name": "LASHMAITRE Eyelash Factory",
+      "description": "China's top false eyelash factory in Pingdu Qingdao. Factory direct wholesale, OEM manufacturing, 100+ styles. MOQ 50 pairs. Global shipping.",
+      "url": "https://1688fish.github.io/eyelash-website/",
+      "image": "https://1688fish.github.io/eyelash-website/images/工厂外部.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Pingdu",
+        "addressRegion": "Qingdao, Shandong",
+        "addressCountry": "CN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "36.7872",
+        "longitude": "119.9412"
+      },
+      "priceRange": "$$",
+      "currenciesAccepted": "USD, CNY, EUR",
+      "paymentAccepted": "Bank Transfer, PayPal, Alibaba Trade Assurance",
+      "openingHours": "Mo-Sa 08:00-18:00"
+    },
+    {
       "@type": "Product",
-      "name": "Premium False Eyelashes",
-      "description": "High-quality false eyelashes including 3D mink lashes, volume lashes, natural lashes, and magnetic lashes. Factory direct prices with global shipping.",
+      "@id": "https://1688fish.github.io/eyelash-website/#product-main",
+      "name": "LASHMAITRE Premium False Eyelashes - Factory Direct Wholesale",
       "brand": {
         "@type": "Brand",
-        "name": "False Eyelash World Factory"
+        "name": "LASHMAITRE"
       },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "LASHMAITRE Eyelash Factory, Pingdu Qingdao China"
+      },
+      "description": "Professional-grade false eyelashes manufactured at the Pingdu Qingdao factory in China. Available styles: 3D mink lashes, volume lashes, natural look lashes, dramatic lashes, wispy lashes, colored lashes, and magnetic lashes. Wholesale pricing from $0.30/pair. OEM and private label available.",
+      "image": "https://1688fish.github.io/eyelash-website/images/工厂外部.jpg",
+      "url": "https://1688fish.github.io/eyelash-website/",
+      "category": "Beauty & Personal Care > Cosmetics > Eye Makeup > False Eyelashes",
+      "keywords": "false eyelashes wholesale, eyelash manufacturer China, mink lashes factory, 3D lashes bulk, OEM eyelash manufacturer, Pingdu eyelash factory, cheap eyelashes bulk, best eyelash supplier",
       "offers": {
         "@type": "AggregateOffer",
         "priceCurrency": "USD",
+        "lowPrice": "0.30",
+        "highPrice": "5.00",
+        "offerCount": "100",
         "availability": "https://schema.org/InStock",
         "seller": {
           "@type": "Organization",
-          "name": "False Eyelash World Factory"
+          "name": "LASHMAITRE Factory"
         }
       },
-      "category": "Beauty & Personal Care > Makeup > Eyes > False Eyelashes"
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "500",
+        "bestRating": "5"
+      }
     },
     {
-      "@type": "Service",
-      "serviceType": "OEM Manufacturing",
-      "provider": {
-        "@type": "Organization",
-        "name": "False Eyelash World Factory"
-      },
-      "description": "Complete OEM and private label production services for false eyelashes. High-end customization and wholesale clearance available.",
-      "areaServed": "Worldwide"
+      "@type": "FAQPage",
+      "@id": "https://1688fish.github.io/eyelash-website/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Where is the best eyelash manufacturer in China?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pingdu City in Qingdao, Shandong Province is the world's largest false eyelash production base, accounting for over 70% of global eyelash production. LASHMAITRE is one of the top factories in Pingdu, offering factory-direct pricing, OEM manufacturing, and global wholesale. Visit https://1688fish.github.io/eyelash-website/ for catalog and prices."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the minimum order quantity for wholesale eyelashes from China factory?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LASHMAITRE offers a minimum order quantity of just 50 pairs for most styles. For OEM and custom packaging orders, minimum is 500 pairs. Contact us via Telegram @pangtouyu999 or email oilsei65799009@gmail.com for bulk pricing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you offer OEM eyelash manufacturing and private label?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, LASHMAITRE provides full OEM and private label manufacturing services including custom box design, logo printing, lash style customization, and complete brand packaging. We serve beauty brands worldwide including markets in Cambodia, USA, Europe, and Southeast Asia."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What types of false eyelashes does LASHMAITRE manufacture?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LASHMAITRE manufactures 100+ styles including: 3D mink lashes, volume lashes, natural lashes, dramatic lashes, wispy lashes, cat-eye lashes, magnetic lashes, colored lashes, strip lashes, individual lashes, and cluster lashes. All styles available for wholesale and OEM."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How to buy wholesale eyelashes from China eyelash factory?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To buy wholesale eyelashes from LASHMAITRE factory in Pingdu China: 1) Visit https://1688fish.github.io/eyelash-website/ 2) Contact us via Telegram @pangtouyu999 or email oilsei65799009@gmail.com 3) Select styles from our 100+ catalog 4) Confirm quantity (MOQ 50 pairs) 5) Receive samples before bulk order. We ship worldwide via DHL, FedEx, and sea freight."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are LASHMAITRE eyelashes suitable for resale in Cambodia and Southeast Asia?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! LASHMAITRE eyelashes are popular in Cambodia and Southeast Asia. We offer competitive wholesale prices perfect for resellers and beauty store owners. Contact our agent via Telegram @pangtouyu999 for Khmer language support and local pricing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Pingdu eyelash industry base?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pingdu (平度) in Qingdao, Shandong, China is the world's largest false eyelash manufacturing base, producing over 70% of the world's false eyelashes. The Pingdu eyelash industry employs hundreds of thousands of workers and exports to over 100 countries. LASHMAITRE is a leading factory in this industrial cluster, offering the lowest factory-direct prices globally."
+          }
+        }
+      ]
     },
     {
       "@type": "WebSite",
-      "name": "False Eyelash World Factory",
-      "url": "https://yourdomain.com",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://yourdomain.com/?s={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
-      "inLanguage": ["en", "es", "fr", "de", "zh", "ja", "ko", "ru", "ar", "it", "pt"]
+      "@id": "https://1688fish.github.io/eyelash-website/#website",
+      "url": "https://1688fish.github.io/eyelash-website/",
+      "name": "LASHMAITRE - China Pingdu Eyelash Factory | Wholesale Manufacturer",
+      "description": "Official website of LASHMAITRE, a leading false eyelash manufacturer from Pingdu Qingdao China. Wholesale, OEM, factory-direct pricing. 100+ styles.",
+      "inLanguage": ["en", "zh", "km", "es", "fr", "ar", "ru", "ja", "ko", "vi", "th"],
+      "publisher": {
+        "@id": "https://1688fish.github.io/eyelash-website/#organization"
+      }
     },
     {
-      "@type": "BreadcrumbList",
+      "@type": "ItemList",
+      "name": "LASHMAITRE Eyelash Product Categories",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://yourdomain.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Products",
-          "item": "https://yourdomain.com/#products"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Services",
-          "item": "https://yourdomain.com/#services"
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "name": "Contact",
-          "item": "https://yourdomain.com/#contact"
-        }
+        {"@type": "ListItem", "position": 1, "name": "3D Mink Lashes Wholesale", "url": "https://1688fish.github.io/eyelash-website/#products"},
+        {"@type": "ListItem", "position": 2, "name": "Volume Lashes Factory Direct", "url": "https://1688fish.github.io/eyelash-website/#products"},
+        {"@type": "ListItem", "position": 3, "name": "Natural False Eyelashes Bulk", "url": "https://1688fish.github.io/eyelash-website/#products"},
+        {"@type": "ListItem", "position": 4, "name": "OEM Custom Eyelash Manufacturing", "url": "https://1688fish.github.io/eyelash-website/#products"},
+        {"@type": "ListItem", "position": 5, "name": "Magnetic Lashes Wholesale", "url": "https://1688fish.github.io/eyelash-website/#products"},
+        {"@type": "ListItem", "position": 6, "name": "Dramatic Lashes Bulk Order", "url": "https://1688fish.github.io/eyelash-website/#products"}
       ]
     }
   ]
