@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://1688fish.github.io/eyelash-website/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 10
