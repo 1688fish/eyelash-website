@@ -67,6 +67,43 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;min-h
 }
 .product-card.selected .select-check{background:#4f6ef7;border-color:#4f6ef7;color:#fff}
 
+/* Product Image */
+.product-img{
+  width:100%;height:160px;object-fit:cover;border-radius:8px;
+  margin-bottom:12px;display:block;background:#f0f2f5;
+}
+.product-img-placeholder{
+  width:100%;height:130px;background:linear-gradient(135deg,#f0f2f8,#e8eaf0);
+  border-radius:8px;margin-bottom:12px;display:flex;align-items:center;
+  justify-content:center;color:#ccc;font-size:2rem;
+}
+
+/* Image Upload in Modal */
+.img-upload-area{
+  width:100%;min-height:140px;border:2px dashed #dde1ea;border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:border-color 0.18s;background:#fafbfc;
+  position:relative;overflow:hidden;
+}
+.img-upload-area:hover{border-color:#4f6ef7;background:#f5f7ff}
+.img-upload-area.has-img{border-style:solid;border-color:#4f6ef7;padding:0}
+.img-upload-area img{
+  width:100%;max-height:200px;object-fit:contain;border-radius:8px;display:block;
+}
+.img-upload-area .upload-hint{
+  font-size:0.82rem;color:#aaa;margin-top:6px;text-align:center;padding:0 12px;
+}
+.img-upload-area .upload-icon{font-size:2rem;color:#ccc}
+.img-upload-actions{
+  display:flex;gap:8px;margin-top:8px;
+}
+
+/* Print preview thumbnail */
+.pv-thumb{
+  width:48px;height:48px;object-fit:cover;border-radius:5px;
+  vertical-align:middle;margin-right:6px;
+}
+
 /* Empty state */
 .empty-state{text-align:center;padding:60px 20px;color:#aaa}
 .empty-state .icon{font-size:3rem;margin-bottom:12px}
@@ -271,6 +308,21 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;min-h
   <div class="modal">
     <h3 id="modal-title">添加商品</h3>
     <input type="hidden" id="editId">
+    <div class="form-row">
+      <label id="lbl-m-img">商品图片</label>
+      <div class="img-upload-area" id="imgUploadArea" onclick="triggerImgUpload()">
+        <div id="imgPlaceholder">
+          <div class="upload-icon">🖼</div>
+          <div class="upload-hint" id="lbl-img-hint">点击上传图片，或拖拽图片到此处<br>支持 JPG / PNG / WEBP</div>
+        </div>
+        <img id="imgPreview" style="display:none;width:100%;max-height:200px;object-fit:contain;border-radius:8px">
+      </div>
+      <input type="file" id="imgFileInput" accept="image/*" style="display:none" onchange="handleImgUpload(event)">
+      <div class="img-upload-actions" id="imgUploadActions" style="display:none">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="triggerImgUpload()">🔄 <span id="lbl-change-img">更换图片</span></button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="removeImg()">✕ <span id="lbl-remove-img">删除图片</span></button>
+      </div>
+    </div>
     <div class="form-row"><label id="lbl-m-name">商品名称 *</label><input id="m-name" placeholder="e.g. 8070 Silk Natural Lashes"></div>
     <div class="form-row"><label id="lbl-m-cat">分类</label>
       <select id="m-cat">
@@ -361,6 +413,7 @@ const T = {
     mName:'商品名称 *', mCat:'分类', mSpec:'规格/描述', mPrice:'标准单价 *',
     mUnit:'单位', mMoq:'MOQ', mSku:'SKU编号', mNote:'备注',
     cancel:'取消', save:'保存',
+    mImg:'商品图片', imgHint:'点击上传图片，或拖拽图片到此处<br>支持 JPG / PNG / WEBP', changeImg:'更换图片', removeImg:'删除图片',
     editBtn:'编辑', delBtn:'删除', selectBtn:'选择',
     pvQuote:'报价单', pvFrom:'供应商', pvTo:'买方',
     pvhName:'商品', pvhSpec:'规格', pvhSku:'SKU', pvhQty:'数量', pvhPrice:'单价', pvhDisc:'折扣', pvhAmt:'金额',
@@ -382,6 +435,7 @@ const T = {
     mName:'Product Name *', mCat:'Category', mSpec:'Spec / Description', mPrice:'Standard Price *',
     mUnit:'Unit', mMoq:'MOQ', mSku:'SKU', mNote:'Notes',
     cancel:'Cancel', save:'Save',
+    mImg:'Product Image', imgHint:'Click to upload or drag & drop here<br>JPG / PNG / WEBP supported', changeImg:'Change Image', removeImg:'Remove Image',
     editBtn:'Edit', delBtn:'Del', selectBtn:'Select',
     pvQuote:'QUOTATION', pvFrom:'From (Supplier)', pvTo:'To (Buyer)',
     pvhName:'Product', pvhSpec:'Spec', pvhSku:'SKU', pvhQty:'Qty', pvhPrice:'Unit Price', pvhDisc:'Disc', pvhAmt:'Amount',
@@ -452,6 +506,10 @@ function applyLang(){
   $('lbl-m-moq').textContent = t.mMoq;
   $('lbl-m-sku').textContent = t.mSku;
   $('lbl-m-note').textContent = t.mNote;
+  $('lbl-m-img').textContent = t.mImg;
+  $('lbl-img-hint').innerHTML = t.imgHint;
+  $('lbl-change-img').textContent = t.changeImg;
+  $('lbl-remove-img').textContent = t.removeImg;
   renderCatalog();
   renderSelected();
 }
@@ -506,6 +564,7 @@ function renderCatalog(){
     card.className = 'product-card' + (isSel?' selected':'');
     card.innerHTML = `
       <div class="select-check" onclick="toggleSelect('${p.id}')">${isSel?'✓':''}</div>
+      ${p.img?`<img class="product-img" src="${p.img}" alt="${p.name}" loading="lazy">`:'<div class="product-img-placeholder">🖼</div>'}
       <span class="cat-badge">${p.cat||'其他'}</span>
       <h3>${p.name}</h3>
       <div class="spec">${p.spec||''}</div>
@@ -594,12 +653,58 @@ function clearQuote(){
   renderCatalog();renderSelected();
 }
 // ── Modal ──
+// ── Image Handling ──
+let currentImg = ''; // base64 string
+function triggerImgUpload(){ $('imgFileInput').click(); }
+function handleImgUpload(e){
+  const file = e.target.files[0]; if(!file) return;
+  if(file.size > 2*1024*1024){ alert(lang==='zh'?'图片不能超过2MB':'Image must be under 2MB'); return; }
+  const reader = new FileReader();
+  reader.onload = ev => { setModalImg(ev.target.result); };
+  reader.readAsDataURL(file);
+  e.target.value='';
+}
+function setModalImg(src){
+  currentImg = src;
+  $('imgPreview').src = src;
+  $('imgPreview').style.display = 'block';
+  $('imgPlaceholder').style.display = 'none';
+  $('imgUploadArea').classList.add('has-img');
+  $('imgUploadActions').style.display = 'flex';
+}
+function clearModalImg(){
+  currentImg = '';
+  $('imgPreview').src = '';
+  $('imgPreview').style.display = 'none';
+  $('imgPlaceholder').style.display = '';
+  $('imgUploadArea').classList.remove('has-img');
+  $('imgUploadActions').style.display = 'none';
+}
+function removeImg(){ clearModalImg(); }
+
+// drag & drop support
+function initImgDrop(){
+  const area = $('imgUploadArea');
+  area.addEventListener('dragover', e=>{ e.preventDefault(); area.style.borderColor='#4f6ef7'; });
+  area.addEventListener('dragleave', ()=>{ area.style.borderColor=''; });
+  area.addEventListener('drop', e=>{
+    e.preventDefault(); area.style.borderColor='';
+    const file = e.dataTransfer.files[0];
+    if(!file||!file.type.startsWith('image/')) return;
+    if(file.size>2*1024*1024){ alert(lang==='zh'?'图片不能超过2MB':'Image must be under 2MB'); return; }
+    const reader=new FileReader();
+    reader.onload=ev=>setModalImg(ev.target.result);
+    reader.readAsDataURL(file);
+  });
+}
+
 function openAddModal(){
   const t=T[lang];
   $('modal-title').textContent=t.modalAdd;
   $('editId').value='';
   ['m-name','m-spec','m-price','m-unit','m-moq','m-sku','m-note'].forEach(id=>$(id).value='');
   $('m-cat').value='睫毛';
+  clearModalImg();
   $('btn-save-modal').textContent=t.save;
   $('modalOverlay').classList.add('open');
   setTimeout(()=>$('m-name').focus(),100);
@@ -616,6 +721,7 @@ function openEditModal(id){
   $('m-moq').value=p.moq||'';
   $('m-sku').value=p.sku||'';
   $('m-note').value=p.note||'';
+  if(p.img){ setModalImg(p.img); } else { clearModalImg(); }
   $('btn-save-modal').textContent=t.save;
   $('modalOverlay').classList.add('open');
 }
@@ -630,13 +736,14 @@ function saveProduct(){
     const p=products.find(x=>x.id===id);
     if(p){ p.name=name;p.cat=$('m-cat').value;p.spec=$('m-spec').value.trim();
       p.price=price;p.unit=$('m-unit').value.trim()||'box';
-      p.moq=parseInt($('m-moq').value)||0;p.sku=$('m-sku').value.trim();p.note=$('m-note').value.trim(); }
-    // update price in selected too
+      p.moq=parseInt($('m-moq').value)||0;p.sku=$('m-sku').value.trim();p.note=$('m-note').value.trim();
+      p.img=currentImg; }
     const s=selected.find(x=>x.id===id); if(s && s.price===parseFloat($('m-price').value||0)) s.price=price;
   } else {
     products.push({id:uid(),name,cat:$('m-cat').value,spec:$('m-spec').value.trim(),
       price,unit:$('m-unit').value.trim()||'box',
-      moq:parseInt($('m-moq').value)||0,sku:$('m-sku').value.trim(),note:$('m-note').value.trim()});
+      moq:parseInt($('m-moq').value)||0,sku:$('m-sku').value.trim(),note:$('m-note').value.trim(),
+      img:currentImg});
   }
   saveProducts(products); saveSelected(selected);
   closeModal(); renderCatalog();
@@ -690,7 +797,8 @@ function generatePrint(){
     const p=products.find(x=>x.id===sel.id); if(!p) return;
     const amt=sel.qty*sel.price*(1-(sel.disc||0)/100); sub+=amt;
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${i++}</td><td>${p.name}</td><td>${p.spec||''}</td><td>${p.sku||''}</td><td>${sel.qty}</td><td>${s}${parseFloat(sel.price).toFixed(2)}</td><td>${sel.disc>0?sel.disc+'%':'-'}</td><td class="r">${s}${amt.toFixed(2)}</td>`;
+    const thumb=p.img?`<img class="pv-thumb" src="${p.img}" alt="">`:'';
+    tr.innerHTML=`<td>${i++}</td><td>${thumb}<strong>${p.name}</strong></td><td>${p.spec||''}</td><td>${p.sku||''}</td><td>${sel.qty}</td><td>${s}${parseFloat(sel.price).toFixed(2)}</td><td>${sel.disc>0?sel.disc+'%':'-'}</td><td class="r">${s}${amt.toFixed(2)}</td>`;
     tbody.appendChild(tr);
   });
   const ship=parseFloat($('q-shipping-fee').value)||0;
@@ -713,6 +821,7 @@ function closePrint(){ $('print-overlay').style.display='none'; }
 window.onload=function(){
   $('qDate').value=new Date().toISOString().slice(0,10);
   $('qNo').value='Q-'+new Date().getFullYear()+'-001';
+  initImgDrop();
   applyLang();
   renderCatalog();
 };
