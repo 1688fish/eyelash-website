@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>报价单系统 | Eyelash Quote System</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #222; }
+.topbar {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff; padding: 14px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar h1 { font-size: 1.3rem; letter-spacing: 1px; }
+.topbar .lang-toggle button {
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  color: #fff; padding: 5px 14px; border-radius: 20px; cursor: pointer;
+  font-size: 0.85rem; transition: background 0.2s;
+}
+.topbar .lang-toggle button:hover { background: rgba(255,255,255,0.28); }
+.container { max-width: 1100px; margin: 28px auto; padding: 0 16px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media(max-width:768px){ .grid { grid-template-columns: 1fr; } }
+.card { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 24px; }
+.card h2 { font-size: 1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #e8eaf0; }
+.form-row { margin-bottom: 14px; }
+.form-row label { display: block; font-size: 0.78rem; font-weight: 600; color: #666; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+.form-row input, .form-row select, .form-row textarea { width: 100%; padding: 9px 12px; border: 1.5px solid #dde1ea; border-radius: 8px; font-size: 0.95rem; color: #222; transition: border-color 0.2s; background: #fafbfc; }
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: #4f6ef7; background: #fff; }
+.form-row textarea { resize: vertical; min-height: 70px; }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.product-table-wrap { overflow-x: auto; margin-bottom: 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+thead tr { background: #f0f2f8; }
+th { padding: 9px 10px; text-align: left; font-weight: 700; color: #444; white-space: nowrap; }
+td { padding: 7px 6px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+td input, td select { width: 100%; padding: 6px 8px; border: 1.5px solid #dde1ea; border-radius: 6px; font-size: 0.85rem; background: #fafbfc; }
+td input:focus, td select:focus { outline: none; border-color: #4f6ef7; }
+.td-amt { font-weight: 700; color: #1a1a2e; text-align: right; white-space: nowrap; }
+.td-del button { background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 1.1rem; padding: 2px 6px; border-radius: 4px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 8px; border: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.18s; }
+.btn-primary { background: #4f6ef7; color: #fff; }
+.btn-primary:hover { background: #3a57e8; }
+.btn-success { background: #27ae60; color: #fff; }
+.btn-success:hover { background: #1e8449; }
+.btn-outline { background: #fff; color: #4f6ef7; border: 1.5px solid #4f6ef7; }
+.btn-outline:hover { background: #eef1fe; }
+.btn-danger { background: #e74c3c; color: #fff; }
+.btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.summary-box { background: #f7f8fc; border: 1.5px solid #e0e4f0; border-radius: 10px; padding: 16px 20px; margin-top: 14px; }
+.summary-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; font-size: 0.92rem; color: #555; }
+.summary-row.total { border-top: 2px solid #d0d5e8; margin-top: 8px; padding-top: 10px; font-size: 1.1rem; font-weight: 800; color: #1a1a2e; }
+.summary-row .val { font-weight: 700; color: #1a1a2e; }
+#preview-section { display: none; margin-top: 28px; }
+.preview-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); padding: 40px 48px; }
+@media(max-width:600px){ .preview-card { padding: 24px 16px; } }
+.preview-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+.preview-logo { font-size: 1.5rem; font-weight: 900; color: #1a1a2e; letter-spacing: 2px; }
+.preview-logo span { color: #4f6ef7; }
+.preview-meta { text-align: right; font-size: 0.85rem; color: #666; line-height: 1.8; }
+.preview-meta strong { color: #1a1a2e; font-size: 1rem; }
+.preview-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+@media(max-width:600px){ .preview-parties { grid-template-columns: 1fr; } }
+.party-box { background: #f7f8fc; border-radius: 8px; padding: 14px 18px; }
+.party-box h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 8px; }
+.party-box p { font-size: 0.9rem; color: #333; line-height: 1.7; }
+.preview-table-wrap { overflow-x: auto; margin-bottom: 24px; }
+.preview-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.preview-table thead tr { background: #1a1a2e; color: #fff; }
+.preview-table th { padding: 11px 12px; text-align: left; font-weight: 600; }
+.preview-table td { padding: 10px 12px; border-bottom: 1px solid #eef0f6; }
+.preview-table tbody tr:nth-child(even) { background: #f9fafc; }
+.preview-table .amt-col { text-align: right; font-weight: 700; }
+.preview-totals { display: flex; justify-content: flex-end; margin-bottom: 24px; }
+.totals-box { min-width: 260px; }
+.totals-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 0.9rem; border-bottom: 1px solid #eef0f6; }
+.totals-row.grand { font-size: 1.1rem; font-weight: 800; color: #1a1a2e; border-bottom: none; border-top: 2px solid #1a1a2e; padding-top: 10px; margin-top: 4px; }
+.preview-notes { background: #fffbf0; border-left: 3px solid #f39c12; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.88rem; color: #555; margin-bottom: 24px; }
+.preview-footer { text-align: center; font-size: 0.8rem; color: #aaa; border-top: 1px solid #eee; padding-top: 16px; }
+.validity-badge { display: inline-block; background: #eef1fe; color: #4f6ef7; border-radius: 20px; padding: 3px 12px; font-size: 0.78rem; font-weight: 700; margin-left: 8px; }
+@media print {
+  .topbar, .container > .grid, .container > .btn-group, #form-section { display: none !important; }
+  #preview-section { display: block !important; }
+  .preview-card { box-shadow: none; padding: 20px; }
+  body { background: #fff; }
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1 id="tb-title">📋 睫毛报价单系统</h1>
+  <div class="lang-toggle">
+    <button onclick="toggleLang()">EN / 中文</button>
+  </div>
+</div>
+
+<div class="container" id="form-section">
+  <div class="grid">
+    <!-- Left: Client + Quote Info -->
+    <div>
+      <div class="card" style="margin-bottom:24px">
+        <h2 id="lbl-client-info">👤 客户信息</h2>
+        <div class="form-row"><label id="lbl-client-name">客户名称</label><input type="text" id="clientName" placeholder="e.g. Beauty Co. Ltd"></div>
+        <div class="form-row"><label id="lbl-client-email">邮箱</label><input type="email" id="clientEmail" placeholder="buyer@example.com"></div>
+        <div class="form-row"><label id="lbl-client-country">国家/地区</label><input type="text" id="clientCountry" placeholder="e.g. Thailand"></div>
+        <div class="form-row"><label id="lbl-client-contact">联系人</label><input type="text" id="clientContact" placeholder="Contact person"></div>
+        <div class="form-row"><label id="lbl-client-whatsapp">WhatsApp / WeChat</label><input type="text" id="clientWhatsapp" placeholder="+66 xxx xxxx"></div>
+      </div>
+      <div class="card">
+        <h2 id="lbl-quote-info">📄 报价信息</h2>
+        <div class="form-row-2">
+          <div class="form-row"><label id="lbl-quote-no">报价单号</label><input type="text" id="quoteNo" placeholder="Q-2026-001"></div>
+          <div class="form-row"><label id="lbl-quote-date">日期</label><input type="date" id="quoteDate"></div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-row"><label id="lbl-valid-days">有效期(天)</label><input type="number" id="validDays" value="30" min="1"></div>
+          <div class="form-row"><label id="lbl-currency">货币</label>
+            <select id="currency">
+              <option value="USD">USD $</option>
+              <option value="CNY">CNY ¥</option>
+              <option value="EUR">EUR €</option>
+              <option value="THB">THB ฿</option>
+              <option value="KHR">KHR ៛</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row"><label id="lbl-payment">付款方式</label>
+          <select id="payment">
+            <option value="T/T 30% deposit">T/T 30% deposit + 70% before shipment</option>
+            <option value="T/T 50% deposit">T/T 50% deposit + 50% before shipment</option>
+            <option value="T/T 100% prepaid">T/T 100% prepaid</option>
+            <option value="L/C">L/C at sight</option>
+          </select>
+        </div>
+        <div class="form-row"><label id="lbl-delivery">交货期</label>
+          <select id="delivery">
+            <option value="7-10 business days">7–10 business days</option>
+            <option value="10-15 business days">10–15 business days</option>
+            <option value="15-20 business days">15–20 business days</option>
+            <option value="customized">Customized (OEM/ODM)</option>
+          </select>
+        </div>
+        <div class="form-row"><label id="lbl-incoterm">贸易条款</label>
+          <select id="incoterm">
+            <option value="FOB">FOB (Free On Board)</option>
+            <option value="CIF">CIF (Cost, Insurance, Freight)</option>
+            <option value="EXW">EXW (Ex Works)</option>
+            <option value="DDP">DDP (Delivered Duty Paid)</option>
+          </select>
+        </div>
+        <div class="form-row"><label id="lbl-notes">备注</label><textarea id="notes" placeholder="Special requirements, custom packaging, etc."></textarea></div>
+      </div>
+    </div>
+    <!-- Right: Products -->
+    <div class="card">
+      <h2 id="lbl-products">🛍️ 产品明细</h2>
+      <div class="product-table-wrap">
+        <table id="productTable">
+          <thead><tr>
+            <th id="th-style">款式</th>
+            <th id="th-spec">规格</th>
+            <th id="th-qty">数量(盒)</th>
+            <th id="th-price">单价</th>
+            <th id="th-disc">折扣%</th>
+            <th id="th-amt">金额</th>
+            <th></th>
+          </tr></thead>
+          <tbody id="productBody"></tbody>
+        </table>
+      </div>
+      <button class="btn btn-outline" onclick="addRow()" id="btn-add-row">+ 添加产品</button>
+      <div class="summary-box">
+        <div class="summary-row"><span id="lbl-subtotal">小计</span><span class="val" id="subtotalVal">$0.00</span></div>
+        <div class="summary-row"><span id="lbl-shipping">运费</span>
+          <span><input type="number" id="shippingFee" value="0" min="0" style="width:90px;padding:4px 8px;border:1.5px solid #dde1ea;border-radius:6px;font-size:0.88rem" oninput="recalc()"> <span id="currency-sym">USD</span></span>
+        </div>
+        <div class="summary-row total"><span id="lbl-total">总计</span><span id="totalVal">$0.00</span></div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="generatePreview()" id="btn-preview">👁 生成预览</button>
+        <button class="btn btn-success" onclick="window.print()" id="btn-print">🖨 打印/PDF</button>
+        <button class="btn btn-danger" onclick="clearAll()" id="btn-clear">🗑 清空</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Preview Section -->
+<div class="container" id="preview-section">
+  <div class="btn-group" style="margin-bottom:16px">
+    <button class="btn btn-outline" onclick="hidePreview()" id="btn-back">← 返回编辑</button>
+    <button class="btn btn-success" onclick="window.print()" id="btn-print2">🖨 打印 / 导出PDF</button>
+  </div>
+  <div class="preview-card" id="previewCard">
+    <div class="preview-header">
+      <div>
+        <div class="preview-logo">EYELASH <span>FACTORY</span></div>
+        <div style="font-size:0.82rem;color:#888;margin-top:4px">Premium Eyelash Manufacturer</div>
+      </div>
+      <div class="preview-meta">
+        <strong id="pv-quote-label">报价单</strong><br>
+        <span id="pv-quote-no"></span><br>
+        <span id="pv-date"></span><br>
+        <span class="validity-badge" id="pv-valid"></span>
+      </div>
+    </div>
+    <div class="preview-parties">
+      <div class="party-box">
+        <h4 id="pv-from-label">供应商</h4>
+        <p>Premium Eyelash Factory<br>Guangzhou, China<br>Email: sales@eyelashfactory.com<br>WhatsApp: +86 xxx xxxx xxxx</p>
+      </div>
+      <div class="party-box">
+        <h4 id="pv-to-label">买方</h4>
+        <p id="pv-client"></p>
+      </div>
+    </div>
+    <div class="preview-table-wrap">
+      <table class="preview-table">
+        <thead><tr>
+          <th>#</th>
+          <th id="pvth-style">款式</th>
+          <th id="pvth-spec">规格</th>
+          <th id="pvth-qty">数量</th>
+          <th id="pvth-price">单价</th>
+          <th id="pvth-disc">折扣</th>
+          <th id="pvth-amt" style="text-align:right">金额</th>
+        </tr></thead>
+        <tbody id="previewBody"></tbody>
+      </table>
+    </div>
+    <div class="preview-totals">
+      <div class="totals-box">
+        <div class="totals-row"><span id="pvlbl-subtotal">小计</span><span id="pv-subtotal"></span></div>
+        <div class="totals-row"><span id="pvlbl-shipping">运费</span><span id="pv-shipping"></span></div>
+        <div class="totals-row"><span id="pvlbl-payment">付款方式</span><span id="pv-payment"></span></div>
+        <div class="totals-row"><span id="pvlbl-delivery">交货期</span><span id="pv-delivery"></span></div>
+        <div class="totals-row"><span id="pvlbl-incoterm">贸易条款</span><span id="pv-incoterm"></span></div>
+        <div class="totals-row grand"><span id="pvlbl-total">总计</span><span id="pv-total"></span></div>
+      </div>
+    </div>
+    <div class="preview-notes" id="pv-notes-wrap">
+      <strong id="pvlbl-notes">备注：</strong><span id="pv-notes"></span>
+    </div>
+    <div class="preview-footer" id="pvlbl-footer">本报价单由系统自动生成，如有疑问请联系我们。This quotation is system-generated. Valid for <span id="pv-valid-days"></span> days.</div>
+  </div>
+</div>
+<script>
+// ── Language Data ──
+const T = {
+  zh: {
+    title:'睫毛报价单系统', clientInfo:'客户信息', clientName:'客户名称', clientEmail:'邮箱',
+    clientCountry:'国家/地区', clientContact:'联系人', clientWhatsapp:'WhatsApp / WeChat',
+    quoteInfo:'报价信息', quoteNo:'报价单号', quoteDate:'日期', validDays:'有效期(天)',
+    currency:'货币', payment:'付款方式', delivery:'交货期', incoterm:'贸易条款', notes:'备注',
+    products:'产品明细', thStyle:'款式', thSpec:'规格', thQty:'数量(盒)', thPrice:'单价',
+    thDisc:'折扣%', thAmt:'金额', addRow:'+ 添加产品', subtotal:'小计', shipping:'运费',
+    total:'总计', preview:'👁 生成预览', print:'🖨 打印/PDF', clear:'🗑 清空',
+    back:'← 返回编辑', print2:'🖨 打印 / 导出PDF',
+    pvQuote:'报价单', pvFrom:'供应商', pvTo:'买方', pvSubtotal:'小计', pvShipping:'运费',
+    pvPayment:'付款方式', pvDelivery:'交货期', pvIncoterm:'贸易条款', pvTotal:'总计',
+    pvNotes:'备注：', pvFooter:'本报价单由系统自动生成，如有疑问请联系我们。'
+  },
+  en: {
+    title:'Eyelash Quote System', clientInfo:'Client Information', clientName:'Client Name',
+    clientEmail:'Email', clientCountry:'Country / Region', clientContact:'Contact Person',
+    clientWhatsapp:'WhatsApp / WeChat', quoteInfo:'Quotation Details', quoteNo:'Quote No.',
+    quoteDate:'Date', validDays:'Valid (days)', currency:'Currency', payment:'Payment Terms',
+    delivery:'Lead Time', incoterm:'Incoterm', notes:'Notes / Remarks',
+    products:'Product List', thStyle:'Style', thSpec:'Spec', thQty:'Qty (boxes)',
+    thPrice:'Unit Price', thDisc:'Disc%', thAmt:'Amount', addRow:'+ Add Product',
+    subtotal:'Subtotal', shipping:'Shipping', total:'Total', preview:'👁 Preview',
+    print:'🖨 Print/PDF', clear:'🗑 Clear', back:'← Back to Edit', print2:'🖨 Print / Export PDF',
+    pvQuote:'QUOTATION', pvFrom:'From (Supplier)', pvTo:'To (Buyer)', pvSubtotal:'Subtotal',
+    pvShipping:'Shipping', pvPayment:'Payment Terms', pvDelivery:'Lead Time',
+    pvIncoterm:'Incoterm', pvTotal:'TOTAL', pvNotes:'Notes: ',
+    pvFooter:'This quotation is system-generated. Please contact us for any queries.'
+  }
+};
+let lang = 'zh';
+let rowId = 0;
+
+// Eyelash style presets
+const STYLES = [
+  '8070 Silk Natural','8070 Silk Dramatic','3D Mink Natural','3D Mink Volume',
+  '5D Faux Mink','Magnetic Lashes','Wispy Natural','Cat Eye','Mega Volume',
+  'Cluster Lashes','Strip Lashes J Curl','Strip Lashes C Curl','Custom OEM'
+];
+
+function $(id){ return document.getElementById(id); }
+
+function toggleLang(){
+  lang = lang === 'zh' ? 'en' : 'zh';
+  applyLang();
+}
+
+function applyLang(){
+  const t = T[lang];
+  $('tb-title').textContent = t.title;
+  $('lbl-client-info').textContent = '👤 ' + t.clientInfo;
+  $('lbl-client-name').textContent = t.clientName;
+  $('lbl-client-email').textContent = t.clientEmail;
+  $('lbl-client-country').textContent = t.clientCountry;
+  $('lbl-client-contact').textContent = t.clientContact;
+  $('lbl-client-whatsapp').textContent = t.clientWhatsapp;
+  $('lbl-quote-info').textContent = '📄 ' + t.quoteInfo;
+  $('lbl-quote-no').textContent = t.quoteNo;
+  $('lbl-quote-date').textContent = t.quoteDate;
+  $('lbl-valid-days').textContent = t.validDays;
+  $('lbl-currency').textContent = t.currency;
+  $('lbl-payment').textContent = t.payment;
+  $('lbl-delivery').textContent = t.delivery;
+  $('lbl-incoterm').textContent = t.incoterm;
+  $('lbl-notes').textContent = t.notes;
+  $('lbl-products').textContent = '🛍️ ' + t.products;
+  $('th-style').textContent = t.thStyle;
+  $('th-spec').textContent = t.thSpec;
+  $('th-qty').textContent = t.thQty;
+  $('th-price').textContent = t.thPrice;
+  $('th-disc').textContent = t.thDisc;
+  $('th-amt').textContent = t.thAmt;
+  $('btn-add-row').textContent = t.addRow;
+  $('lbl-subtotal').textContent = t.subtotal;
+  $('lbl-shipping').textContent = t.shipping;
+  $('lbl-total').textContent = t.total;
+  $('btn-preview').textContent = t.preview;
+  $('btn-print').textContent = t.print;
+  $('btn-clear').textContent = t.clear;
+  $('btn-back').textContent = t.back;
+  $('btn-print2').textContent = t.print2;
+  document.documentElement.lang = lang;
+}
+function getCurrSym(){
+  const c = $('currency').value;
+  const map = {USD:'$',CNY:'¥',EUR:'€',THB:'฿',KHR:'៛'};
+  return map[c] || c + ' ';
+}
+
+function addRow(){
+  rowId++;
+  const tbody = $('productBody');
+  const tr = document.createElement('tr');
+  tr.id = 'row-' + rowId;
+  const styleOpts = STYLES.map(s => `<option value="${s}">${s}</option>`).join('');
+  tr.innerHTML = `
+    <td><select onchange="recalc()">${styleOpts}<option value="custom">Custom...</option></select></td>
+    <td><input type="text" placeholder="e.g. 10pairs/box" style="min-width:100px"></td>
+    <td><input type="number" value="100" min="1" oninput="recalc()" style="width:70px"></td>
+    <td><input type="number" value="0.00" min="0" step="0.01" oninput="recalc()" style="width:80px"></td>
+    <td><input type="number" value="0" min="0" max="100" oninput="recalc()" style="width:55px"></td>
+    <td class="td-amt" id="amt-${rowId}">$0.00</td>
+    <td class="td-del"><button onclick="delRow(${rowId})" title="Delete">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+  recalc();
+}
+
+function delRow(id){
+  const r = $('row-'+id);
+  if(r) r.remove();
+  recalc();
+}
+
+function recalc(){
+  const sym = getCurrSym();
+  $('currency-sym').textContent = $('currency').value;
+  let subtotal = 0;
+  const rows = $('productBody').querySelectorAll('tr');
+  rows.forEach(tr => {
+    const inputs = tr.querySelectorAll('input[type=number]');
+    const qty = parseFloat(inputs[0].value) || 0;
+    const price = parseFloat(inputs[1].value) || 0;
+    const disc = parseFloat(inputs[2].value) || 0;
+    const amt = qty * price * (1 - disc/100);
+    const amtCell = tr.querySelector('[id^=amt-]');
+    if(amtCell) amtCell.textContent = sym + amt.toFixed(2);
+    subtotal += amt;
+  });
+  const shipping = parseFloat($('shippingFee').value) || 0;
+  const total = subtotal + shipping;
+  $('subtotalVal').textContent = sym + subtotal.toFixed(2);
+  $('totalVal').textContent = sym + total.toFixed(2);
+}
+
+function generatePreview(){
+  const t = T[lang];
+  const sym = getCurrSym();
+  const cur = $('currency').value;
+  // Quote meta
+  const qNo = $('quoteNo').value || 'Q-' + Date.now();
+  const qDate = $('quoteDate').value || new Date().toISOString().slice(0,10);
+  const vDays = $('validDays').value || 30;
+  $('pv-quote-label').textContent = t.pvQuote;
+  $('pv-quote-no').textContent = qNo;
+  $('pv-date').textContent = qDate;
+  $('pv-valid').textContent = '✓ Valid ' + vDays + ' days';
+  $('pv-valid-days').textContent = vDays;
+  // Client
+  const name = $('clientName').value || '-';
+  const email = $('clientEmail').value;
+  const country = $('clientCountry').value;
+  const contact = $('clientContact').value;
+  const wa = $('clientWhatsapp').value;
+  $('pv-client').innerHTML = [name, contact, email, country, wa].filter(Boolean).join('<br>');
+  // Labels
+  $('pv-from-label').textContent = t.pvFrom;
+  $('pv-to-label').textContent = t.pvTo;
+  $('pvth-style').textContent = t.thStyle;
+  $('pvth-spec').textContent = t.thSpec;
+  $('pvth-qty').textContent = t.thQty;
+  $('pvth-price').textContent = t.thPrice;
+  $('pvth-disc').textContent = t.thDisc;
+  $('pvth-amt').textContent = t.thAmt;
+  // Product rows
+  const tbody = $('previewBody');
+  tbody.innerHTML = '';
+  let subtotal = 0, i = 1;
+  $('productBody').querySelectorAll('tr').forEach(tr => {
+    const sel = tr.querySelector('select');
+    const inputs = tr.querySelectorAll('input');
+    const style = sel ? sel.value : '-';
+    const spec = inputs[0] ? inputs[0].value : '';
+    const qty = parseFloat(inputs[1] ? inputs[1].value : 0) || 0;
+    const price = parseFloat(inputs[2] ? inputs[2].value : 0) || 0;
+    const disc = parseFloat(inputs[3] ? inputs[3].value : 0) || 0;
+    const amt = qty * price * (1 - disc/100);
+    subtotal += amt;
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${i++}</td><td>${style}</td><td>${spec}</td><td>${qty}</td><td>${sym}${price.toFixed(2)}</td><td>${disc>0?disc+'%':'-'}</td><td class="amt-col">${sym}${amt.toFixed(2)}</td>`;
+    tbody.appendChild(row);
+  });
+  const shipping = parseFloat($('shippingFee').value) || 0;
+  const total = subtotal + shipping;
+  $('pvlbl-subtotal').textContent = t.pvSubtotal;
+  $('pv-subtotal').textContent = sym + subtotal.toFixed(2) + ' ' + cur;
+  $('pvlbl-shipping').textContent = t.pvShipping;
+  $('pv-shipping').textContent = sym + shipping.toFixed(2) + ' ' + cur;
+  $('pvlbl-payment').textContent = t.pvPayment;
+  $('pv-payment').textContent = $('payment').value;
+  $('pvlbl-delivery').textContent = t.pvDelivery;
+  $('pv-delivery').textContent = $('delivery').value;
+  $('pvlbl-incoterm').textContent = t.pvIncoterm;
+  $('pv-incoterm').textContent = $('incoterm').value;
+  $('pvlbl-total').textContent = t.pvTotal;
+  $('pv-total').textContent = sym + total.toFixed(2) + ' ' + cur;
+  const notes = $('notes').value;
+  $('pvlbl-notes').textContent = t.pvNotes;
+  $('pv-notes').textContent = notes;
+  $('pv-notes-wrap').style.display = notes ? '' : 'none';
+  $('pvlbl-footer').innerHTML = t.pvFooter + ' Valid for <span id="pv-valid-days2">' + vDays + '</span> days.';
+  $('form-section').style.display = 'none';
+  $('preview-section').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function hidePreview(){
+  $('preview-section').style.display = 'none';
+  $('form-section').style.display = '';
+}
+
+function clearAll(){
+  if(!confirm(lang==='zh'?'确定清空所有数据？':'Clear all data?')) return;
+  ['clientName','clientEmail','clientCountry','clientContact','clientWhatsapp','notes'].forEach(id=>$(id).value='');
+  $('quoteNo').value = '';
+  $('shippingFee').value = '0';
+  $('productBody').innerHTML = '';
+  rowId = 0;
+  recalc();
+}
+
+// Init
+window.onload = function(){
+  const today = new Date().toISOString().slice(0,10);
+  $('quoteDate').value = today;
+  const yr = new Date().getFullYear();
+  $('quoteNo').value = 'Q-' + yr + '-001';
+  addRow();
+  addRow();
+  applyLang();
+};
+</script>
+</body>
+</html>
