@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>业务管理系统</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh}
+a{color:#4fc3f7;text-decoration:none}
+button{cursor:pointer;border:none;border-radius:6px;padding:8px 16px;font-size:14px;transition:all .2s}
+.btn-primary{background:#4fc3f7;color:#1a1a2e;font-weight:600}
+.btn-primary:hover{background:#81d4fa}
+.btn-danger{background:#ef5350;color:#fff}
+.btn-danger:hover{background:#e53935}
+.btn-success{background:#66bb6a;color:#fff}
+.btn-success:hover{background:#43a047}
+.btn-secondary{background:#37474f;color:#e0e0e0}
+.btn-secondary:hover{background:#455a64}
+.btn-warning{background:#ffa726;color:#1a1a2e;font-weight:600}
+.btn-warning:hover{background:#fb8c00}
+.card{background:#16213e;border-radius:12px;padding:24px;margin-bottom:20px;border:1px solid #0f3460}
+input,select,textarea{background:#0f3460;color:#e0e0e0;border:1px solid #1a4a7a;border-radius:6px;padding:8px 12px;font-size:14px;width:100%;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#4fc3f7}
+textarea{resize:vertical;min-height:80px}
+label{display:block;margin-bottom:4px;color:#90caf9;font-size:13px}
+.form-group{margin-bottom:14px}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal{background:#16213e;border-radius:12px;padding:28px;width:90%;max-width:560px;max-height:90vh;overflow-y:auto;border:1px solid #0f3460}
+.modal h3{color:#4fc3f7;margin-bottom:20px;font-size:18px}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+.badge-pending{background:#f57c00;color:#fff}
+.badge-approved{background:#388e3c;color:#fff}
+.badge-rejected{background:#c62828;color:#fff}
+.badge-new{background:#1565c0;color:#fff}
+.badge-quoted{background:#6a1b9a;color:#fff}
+.badge-closed{background:#37474f;color:#fff}
+.badge-won{background:#2e7d32;color:#fff}
+.tab-bar{display:flex;gap:4px;background:#0f3460;padding:8px;border-radius:10px;margin-bottom:24px;flex-wrap:wrap}
+.tab-btn{padding:10px 18px;border-radius:8px;background:transparent;color:#90caf9;font-size:14px;font-weight:500;position:relative}
+.tab-btn.active{background:#4fc3f7;color:#1a1a2e}
+.tab-btn .tab-badge{position:absolute;top:4px;right:4px;background:#ef5350;color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.tab-content{display:none}
+.tab-content.active{display:block}
+#app{padding:20px;max-width:1400px;margin:0 auto}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#0f3460;border-bottom:1px solid #1a4a7a;margin-bottom:0}
+.topbar-title{font-size:18px;font-weight:700;color:#4fc3f7}
+.topbar-user{font-size:13px;color:#90caf9;display:flex;align-items:center;gap:12px}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.product-card{background:#0f3460;border-radius:10px;overflow:hidden;border:1px solid #1a4a7a;transition:border-color .2s;position:relative}
+.product-card:hover{border-color:#4fc3f7}
+.product-card .img-wrap{width:100%;height:160px;background:#1a1a2e;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.product-card .img-wrap img{width:100%;height:100%;object-fit:cover}
+.product-card .img-wrap .no-img{color:#37474f;font-size:36px}
+.product-card .card-body{padding:12px}
+.product-card .card-name{font-weight:600;margin-bottom:6px;color:#e0e0e0;font-size:14px}
+.product-card .card-spec{font-size:12px;color:#90caf9;margin-bottom:4px}
+.product-card .card-price{font-size:15px;color:#4fc3f7;font-weight:700}
+.product-card .card-moq{font-size:12px;color:#78909c}
+.product-card .card-actions{display:flex;gap:6px;margin-top:10px}
+.product-card .card-actions button{padding:5px 10px;font-size:12px}
+.product-card .sel-check{position:absolute;top:8px;left:8px;width:22px;height:22px;accent-color:#4fc3f7}
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.chip{padding:6px 14px;border-radius:20px;background:#0f3460;color:#90caf9;border:1px solid #1a4a7a;font-size:13px;cursor:pointer;transition:all .2s}
+.chip.active{background:#4fc3f7;color:#1a1a2e;border-color:#4fc3f7}
+.search-box{flex:1;min-width:180px;max-width:300px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+table th{background:#0f3460;color:#90caf9;padding:10px 12px;text-align:left;font-weight:600}
+table td{padding:10px 12px;border-bottom:1px solid #1a2a4a;vertical-align:middle}
+table tr:hover td{background:#12294a}
+.quote-layout{display:grid;grid-template-columns:1fr 380px;gap:20px}
+@media(max-width:900px){.quote-layout{grid-template-columns:1fr}}
+.quote-items-table{width:100%;border-collapse:collapse;font-size:13px}
+.quote-items-table th{background:#0f3460;padding:8px;text-align:left;color:#90caf9}
+.quote-items-table td{padding:6px 8px;border-bottom:1px solid #1a2a4a}
+.quote-items-table input{padding:4px 6px;font-size:13px}
+.summary-box{background:#0f3460;border-radius:8px;padding:16px;margin-top:16px}
+.summary-row{display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px}
+.summary-row.total{font-size:16px;font-weight:700;color:#4fc3f7;border-top:1px solid #1a4a7a;padding-top:8px;margin-top:4px}
+.img-drop{border:2px dashed #1a4a7a;border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:border-color .2s;color:#78909c;font-size:13px}
+.img-drop:hover,.img-drop.dragover{border-color:#4fc3f7;color:#4fc3f7}
+.img-preview{width:100%;max-height:160px;object-fit:contain;border-radius:6px;margin-top:8px}
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#1a1a2e}
+.auth-card{background:#16213e;border-radius:16px;padding:36px;width:90%;max-width:420px;border:1px solid #0f3460}
+.auth-card h2{color:#4fc3f7;text-align:center;margin-bottom:28px;font-size:22px}
+.auth-switch{text-align:center;margin-top:16px;font-size:13px;color:#78909c}
+.print-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:9999;overflow:auto;padding:20px}
+.print-overlay.active{display:block}
+@media print{
+  .print-overlay{position:static}
+  .no-print{display:none!important}
+}
+.print-doc{max-width:800px;margin:0 auto;font-family:Arial,sans-serif;color:#222;background:#fff}
+.print-doc .ph{color:#aaa;font-style:italic}
+.print-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:16px;border-bottom:2px solid #1a1a2e;margin-bottom:20px}
+.print-title{font-size:28px;font-weight:700;color:#1a1a2e}
+.print-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+.print-table th{background:#1a1a2e;color:#fff;padding:9px 12px;text-align:left;font-size:13px}
+.print-table td{padding:9px 12px;border-bottom:1px solid #ddd;font-size:13px}
+.print-totals{float:right;width:260px}
+.print-totals table{width:100%;border-collapse:collapse}
+.print-totals td{padding:6px 10px;font-size:13px}
+.print-totals .grand{font-weight:700;font-size:15px;color:#1a1a2e;border-top:2px solid #1a1a2e}
+.print-footer{clear:both;margin-top:30px;padding-top:16px;border-top:1px solid #ddd;font-size:12px;color:#555}
+.section-title{font-size:16px;font-weight:700;color:#4fc3f7;margin-bottom:12px}
+scrollbar-width:thin;
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0f3460}
+::-webkit-scrollbar-thumb{background:#1a4a7a;border-radius:3px}
+</style>
+</head>
+<body>
+<!-- AUTH VIEWS -->
+<div id="view-auth" class="auth-wrap">
+  <div class="auth-card">
+    <div id="auth-login">
+      <h2>🔐 系统登录</h2>
+      <div class="form-group"><label>用户名</label><input id="l-user" placeholder="用户名"></div>
+      <div class="form-group"><label>密码</label><input id="l-pass" type="password" placeholder="密码"></div>
+      <div id="l-err" style="color:#ef5350;font-size:13px;margin-bottom:10px"></div>
+      <button class="btn-primary" style="width:100%" onclick="doLogin()">登 录</button>
+      <div class="auth-switch">没有账号？<a href="#" onclick="showReg()">立即注册</a></div>
+    </div>
+    <div id="auth-register" style="display:none">
+      <h2>📝 申请注册</h2>
+      <div class="form-group"><label>用户名 *</label><input id="r-user" placeholder="登录用户名"></div>
+      <div class="form-group"><label>密码 *</label><input id="r-pass" type="password" placeholder="密码"></div>
+      <div class="form-group"><label>公司名称 *</label><input id="r-company" placeholder="公司名称"></div>
+      <div class="form-group"><label>联系方式 *</label><input id="r-contact" placeholder="电话/WhatsApp"></div>
+      <div class="form-group"><label>邮箱 *</label><input id="r-email" type="email" placeholder="邮箱地址"></div>
+      <div class="form-group"><label>申请原因</label><textarea id="r-reason" placeholder="请说明申请使用的理由..."></textarea></div>
+      <div id="r-err" style="color:#ef5350;font-size:13px;margin-bottom:10px"></div>
+      <button class="btn-primary" style="width:100%" onclick="doRegister()">提 交 申 请</button>
+      <div class="auth-switch">已有账号？<a href="#" onclick="showLogin()">返回登录</a></div>
+    </div>
+  </div>
+</div>
+<!-- PENDING SCREEN -->
+<div id="view-pending" style="display:none" class="auth-wrap">
+  <div class="auth-card" style="text-align:center">
+    <div style="font-size:48px;margin-bottom:16px">⏳</div>
+    <h2 style="color:#ffa726">申请审核中</h2>
+    <p style="margin:16px 0;color:#90caf9;line-height:1.7">您的注册申请已提交，请等待管理员审核。<br>审核结果将通过邮件通知您。</p>
+    <p style="font-size:13px;color:#78909c">如有疑问，请联系管理员：<br><a href="mailto:946117126@gmail.com">946117126@gmail.com</a></p>
+    <button class="btn-secondary" style="margin-top:20px" onclick="doLogout()">返 回 登 录</button>
+  </div>
+</div>
+<!-- REJECTED SCREEN -->
+<div id="view-rejected" style="display:none" class="auth-wrap">
+  <div class="auth-card" style="text-align:center">
+    <div style="font-size:48px;margin-bottom:16px">❌</div>
+    <h2 style="color:#ef5350">申请未通过</h2>
+    <p style="margin:16px 0;color:#90caf9;line-height:1.7">很抱歉，您的注册申请未获批准。<br>如有疑问请联系管理员。</p>
+    <p style="font-size:13px;color:#78909c"><a href="mailto:946117126@gmail.com">946117126@gmail.com</a></p>
+    <button class="btn-secondary" style="margin-top:20px" onclick="doLogout()">返 回 登 录</button>
+  </div>
+</div>
+<!-- MAIN APP -->
+<div id="view-app" style="display:none">
+  <div class="topbar">
+    <div class="topbar-title">📊 业务管理系统</div>
+    <div class="topbar-user">
+      <span id="topbar-username"></span>
+      <button class="btn-secondary" style="padding:6px 12px;font-size:12px" onclick="doLogout()">退出登录</button>
+    </div>
+  </div>
+  <div style="padding:20px;max-width:1400px;margin:0 auto">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('catalog')" id="tab-catalog">📋 商品目录</button>
+      <button class="tab-btn" onclick="switchTab('inquiry')" id="tab-inquiry">📩 客户询盘</button>
+      <button class="tab-btn" onclick="switchTab('quote')" id="tab-quote">📄 生成报价单 <span class="tab-badge" id="quote-badge" style="display:none">0</span></button>
+      <button class="tab-btn" onclick="switchTab('admin')" id="tab-admin" style="display:none">🔧 管理员 <span class="tab-badge" id="admin-badge" style="display:none">0</span></button>
+    </div>
+    <!-- CATALOG TAB -->
+    <div class="tab-content active" id="tab-content-catalog">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+          <span style="font-size:16px;font-weight:700;color:#4fc3f7">📋 商品目录</span>
+          <button class="btn-primary" onclick="openProductModal()">+ 添加商品</button>
+        </div>
+        <div class="filter-bar">
+          <input class="search-box" id="prod-search" placeholder="搜索商品名称/SKU..." oninput="renderProducts()">
+        </div>
+        <div class="filter-bar" id="cat-chips"></div>
+        <div class="product-grid" id="product-grid"></div>
+      </div>
+    </div>
+    <!-- INQUIRY TAB -->
+    <div class="tab-content" id="tab-content-inquiry">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+          <span style="font-size:16px;font-weight:700;color:#4fc3f7">📩 客户询盘库</span>
+          <button class="btn-primary" onclick="openInquiryModal()">+ 新增询盘</button>
+        </div>
+        <div class="filter-bar">
+          <input class="search-box" id="inq-search" placeholder="搜索客户/公司/国家..." oninput="renderInquiries()">
+        </div>
+        <div class="filter-bar" id="inq-status-chips"></div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr>
+              <th>日期</th><th>客户</th><th>公司</th><th>国家</th><th>联系方式</th>
+              <th>意向产品</th><th>状态</th><th>操作</th>
+            </tr></thead>
+            <tbody id="inquiry-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- QUOTE TAB -->
+    <div class="tab-content" id="tab-content-quote">
+      <div class="quote-layout">
+        <div>
+          <div class="card">
+            <div style="font-size:15px;font-weight:700;color:#4fc3f7;margin-bottom:12px">📦 报价商品</div>
+            <div id="quote-empty" style="color:#78909c;text-align:center;padding:30px">请在商品目录中勾选商品后添加到报价单</div>
+            <div style="overflow-x:auto">
+              <table class="quote-items-table" id="quote-items-table" style="display:none">
+                <thead><tr>
+                  <th>商品</th><th style="width:70px">数量</th><th style="width:90px">单价</th>
+                  <th style="width:80px">折扣%</th><th style="width:90px">小计</th><th style="width:36px"></th>
+                </tr></thead>
+                <tbody id="quote-tbody"></tbody>
+              </table>
+            </div>
+            <div class="summary-box">
+              <div class="summary-row"><span>小计</span><span id="q-subtotal">0.00</span></div>
+              <div class="summary-row"><span>运费</span>
+                <input id="q-shipping" type="number" value="0" style="width:100px;display:inline" oninput="calcQuoteSummary()">
+              </div>
+              <div class="summary-row total"><span>总计</span><span id="q-total">0.00</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="font-size:15px;font-weight:700;color:#4fc3f7;margin-bottom:12px">🏢 供应商信息</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="form-group"><label>公司名称</label><input id="sup-name" placeholder="您的公司名称"></div>
+              <div class="form-group"><label>联系人</label><input id="sup-contact" placeholder="联系人姓名"></div>
+            </div>
+            <div class="form-group"><label>地址</label><input id="sup-addr" placeholder="公司地址"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="form-group"><label>电话/WhatsApp</label><input id="sup-tel" placeholder="联系电话"></div>
+              <div class="form-group"><label>邮箱</label><input id="sup-email" placeholder="邮箱"></div>
+            </div>
+            <button class="btn-secondary" onclick="saveSupplier()">保存供应商信息</button>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div style="font-size:15px;font-weight:700;color:#4fc3f7;margin-bottom:12px">👤 客户信息</div>
+            <div class="form-group"><label>客户姓名</label><input id="q-client-name" placeholder="客户姓名"></div>
+            <div class="form-group"><label>公司</label><input id="q-client-company" placeholder="客户公司"></div>
+            <div class="form-group"><label>国家</label><input id="q-client-country" placeholder="国家"></div>
+            <div class="form-group"><label>联系方式</label><input id="q-client-contact" placeholder="WhatsApp/邮箱"></div>
+          </div>
+          <div class="card">
+            <div style="font-size:15px;font-weight:700;color:#4fc3f7;margin-bottom:12px">📄 报价详情</div>
+            <div class="form-group"><label>报价单号</label><input id="q-no" placeholder="自动生成"></div>
+            <div class="form-group"><label>日期</label><input id="q-date" type="date"></div>
+            <div class="form-group"><label>有效天数</label><input id="q-valid" type="number" value="30" placeholder="30"></div>
+            <div class="form-group"><label>币种</label>
+              <select id="q-currency">
+                <option>USD</option><option>CNY</option><option>EUR</option><option>THB</option><option>KHR</option>
+              </select>
+            </div>
+            <div class="form-group"><label>付款条件</label><input id="q-payment" placeholder="例：30% TT deposit"></div>
+            <div class="form-group"><label>交货期</label><input id="q-lead" placeholder="例：15-20 working days"></div>
+            <div class="form-group"><label>贸易条款</label>
+              <select id="q-incoterm">
+                <option>EXW</option><option>FOB</option><option>CIF</option><option>DDP</option><option>DAP</option>
+              </select>
+            </div>
+            <div class="form-group"><label>备注</label><textarea id="q-notes" placeholder="其他说明..."></textarea></div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn-primary" onclick="generatePreview()">🖨 生成预览</button>
+              <button class="btn-success" onclick="saveQuoteToInquiry()" id="btn-save-inq" style="display:none">💾 保存至询盘</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ADMIN TAB -->
+    <div class="tab-content" id="tab-content-admin">
+      <div class="card">
+        <div style="font-size:16px;font-weight:700;color:#4fc3f7;margin-bottom:16px">🔧 用户管理</div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr>
+              <th>用户名</th><th>公司</th><th>邮箱</th><th>联系方式</th><th>申请原因</th><th>注册时间</th><th>状态</th><th>操作</th>
+            </tr></thead>
+            <tbody id="admin-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="modal-product">
+  <div class="modal" style="max-width:640px">
+    <h3 id="prod-modal-title">添加商品</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="form-group"><label>商品名称 *</label><input id="pm-name" placeholder="商品名称"></div>
+      <div class="form-group"><label>分类</label>
+        <select id="pm-cat">
+          <option>睫毛</option><option>护肤</option><option>彩妆</option>
+          <option>工具</option><option>包装</option><option>其他</option>
+        </select>
+      </div>
+      <div class="form-group"><label>规格</label><input id="pm-spec" placeholder="规格型号"></div>
+      <div class="form-group"><label>SKU</label><input id="pm-sku" placeholder="SKU编号"></div>
+      <div class="form-group"><label>价格</label><input id="pm-price" type="number" placeholder="0.00"></div>
+      <div class="form-group"><label>单位</label><input id="pm-unit" placeholder="例：pcs/pair/box"></div>
+      <div class="form-group"><label>MOQ</label><input id="pm-moq" placeholder="最小起订量"></div>
+      <div class="form-group"><label>备注</label><input id="pm-note" placeholder="备注"></div>
+    </div>
+    <div class="form-group">
+      <label>商品图片 (最大2MB)</label>
+      <div class="img-drop" id="img-drop" onclick="document.getElementById('img-file').click()" ondragover="imgDragOver(event)" ondrop="imgDrop(event)">
+        <div id="img-drop-text">点击或拖拽上传图片</div>
+        <img id="img-preview" class="img-preview" style="display:none">
+      </div>
+      <input type="file" id="img-file" accept="image/*" style="display:none" onchange="imgFileChange(event)">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('modal-product')">取消</button>
+      <button class="btn-primary" onclick="saveProduct()">保存</button>
+    </div>
+  </div>
+</div>
+<!-- INQUIRY MODAL -->
+<div class="modal-overlay" id="modal-inquiry">
+  <div class="modal" style="max-width:620px">
+    <h3 id="inq-modal-title">新增询盘</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="form-group"><label>客户姓名 *</label><input id="im-name" placeholder="客户姓名"></div>
+      <div class="form-group"><label>公司</label><input id="im-company" placeholder="公司名称"></div>
+      <div class="form-group"><label>国家</label><input id="im-country" placeholder="国家"></div>
+      <div class="form-group"><label>WhatsApp/邮箱</label><input id="im-contact" placeholder="联系方式"></div>
+      <div class="form-group"><label>来源</label>
+        <select id="im-source">
+          <option>WhatsApp</option><option>邮件</option><option>展会</option><option>介绍</option><option>其他</option>
+        </select>
+      </div>
+      <div class="form-group"><label>状态</label>
+        <select id="im-status">
+          <option value="新询盘">新询盘</option><option value="已报价">已报价</option>
+          <option value="已成交">已成交</option><option value="已关闭">已关闭</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label>意向产品</label><textarea id="im-products" placeholder="客户感兴趣的产品..."></textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="form-group"><label>数量需求</label><input id="im-qty" placeholder="数量需求"></div>
+      <div class="form-group"><label>预算范围</label><input id="im-budget" placeholder="预算范围"></div>
+    </div>
+    <div class="form-group"><label>备注</label><textarea id="im-notes" placeholder="其他备注..."></textarea></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('modal-inquiry')">取消</button>
+      <button class="btn-primary" onclick="saveInquiry()">保存</button>
+    </div>
+  </div>
+</div>
+<!-- PRINT OVERLAY -->
+<div class="print-overlay no-print" id="print-overlay">
+  <div style="max-width:860px;margin:0 auto">
+    <div class="no-print" style="display:flex;gap:10px;margin-bottom:16px">
+      <button class="btn-primary" onclick="window.print()">🖨 打印 / 保存PDF</button>
+      <button class="btn-secondary" onclick="closePrint()">✕ 关闭预览</button>
+    </div>
+    <div class="print-doc" id="print-doc"></div>
+  </div>
+</div>
+<script>
+// ── Storage Keys ──
+const KEY_USERS='sys_users',KEY_SESSION='sys_session',KEY_PRODUCTS='sys_products',KEY_INQUIRIES='sys_inquiries',KEY_SUPPLIER='sys_supplier';
+const ADMIN={username:'admin',password:'admin888',status:'approved',company:'管理员',id:'admin'};
+
+// ── Helpers ──
+function ls(k){try{return JSON.parse(localStorage.getItem(k))||null}catch{return null}}
+function lss(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
+function today(){return new Date().toISOString().slice(0,10)}
+function fmt(n){return parseFloat(n||0).toFixed(2)}
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+// ── Auth ──
+function getUsers(){return ls(KEY_USERS)||[]}
+function saveUsers(u){lss(KEY_USERS,u)}
+function getSession(){return ls(KEY_SESSION)}
+function setSession(u){lss(KEY_SESSION,u)}
+
+function showLogin(){document.getElementById('auth-login').style.display='';document.getElementById('auth-register').style.display='none';document.getElementById('l-err').textContent='';}
+function showReg(){document.getElementById('auth-login').style.display='none';document.getElementById('auth-register').style.display='';document.getElementById('r-err').textContent='';}
+
+function showView(v){
+  ['view-auth','view-pending','view-rejected','view-app'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('view-'+v).style.display='flex';
+  if(v==='app') document.getElementById('view-app').style.display='block';
+}
+
+function doLogin(){
+  const u=document.getElementById('l-user').value.trim();
+  const p=document.getElementById('l-pass').value.trim();
+  const err=document.getElementById('l-err');
+  if(!u||!p){err.textContent='请输入用户名和密码';return;}
+  if(u===ADMIN.username&&p===ADMIN.password){setSession(ADMIN);initApp(ADMIN);return;}
+  const users=getUsers();
+  const found=users.find(x=>x.username===u&&x.password===p);
+  if(!found){err.textContent='用户名或密码错误';return;}
+  if(found.status==='pending'){setSession(found);showView('pending');return;}
+  if(found.status==='rejected'){setSession(found);showView('rejected');return;}
+  setSession(found);initApp(found);
+}
+
+function doRegister(){
+  const u=document.getElementById('r-user').value.trim();
+  const p=document.getElementById('r-pass').value.trim();
+  const c=document.getElementById('r-company').value.trim();
+  const ct=document.getElementById('r-contact').value.trim();
+  const e=document.getElementById('r-email').value.trim();
+  const r=document.getElementById('r-reason').value.trim();
+  const err=document.getElementById('r-err');
+  if(!u||!p||!c||!ct||!e){err.textContent='请填写所有必填项';return;}
+  if(u===ADMIN.username){err.textContent='该用户名不可用';return;}
+  const users=getUsers();
+  if(users.find(x=>x.username===u)){err.textContent='用户名已存在';return;}
+  const newUser={id:uid(),username:u,password:p,company:c,contact:ct,email:e,reason:r,status:'pending',createdAt:new Date().toISOString()};
+  users.push(newUser);saveUsers(users);
+  setSession(newUser);showView('pending');
+}
+
+function doLogout(){localStorage.removeItem(KEY_SESSION);location.reload();}
+// ── App Init ──
+let currentUser=null;
+function initApp(user){
+  currentUser=user;
+  showView('app');
+  document.getElementById('topbar-username').textContent=user.username+(user.company&&user.company!=='管理员'?' ('+user.company+')':'');
+  if(user.id==='admin'){document.getElementById('tab-admin').style.display='';updateAdminBadge();}
+  loadSupplier();
+  renderProducts();
+  renderInquiries();
+  initQuote();
+  switchTab('catalog');
+}
+
+// ── Products ──
+const CATS=['全部','睫毛','护肤','彩妆','工具','包装','其他'];
+let activeCat='全部';
+let editingProductId=null;
+let productImg=null;
+
+function getProducts(){return ls(KEY_PRODUCTS)||[]}
+function saveProducts(p){lss(KEY_PRODUCTS,p)}
+
+function renderCatChips(){
+  const el=document.getElementById('cat-chips');
+  el.innerHTML=CATS.map(c=>`<span class="chip${activeCat===c?' active':''}" onclick="setCat('${c}')">${c}</span>`).join('');
+}
+function setCat(c){activeCat=c;renderProducts();}
+
+function renderProducts(){
+  renderCatChips();
+  const search=(document.getElementById('prod-search').value||'').toLowerCase();
+  let prods=getProducts();
+  if(activeCat!=='全部')prods=prods.filter(p=>p.category===activeCat);
+  if(search)prods=prods.filter(p=>(p.name+p.sku).toLowerCase().includes(search));
+  const grid=document.getElementById('product-grid');
+  const selected=getSelectedIds();
+  if(!prods.length){grid.innerHTML='<div style="color:#78909c;text-align:center;padding:40px;grid-column:1/-1">暂无商品</div>';return;}
+  grid.innerHTML=prods.map(p=>{
+    const sel=selected.includes(p.id);
+    return `<div class="product-card${sel?' selected':''}" id="pc-${p.id}">
+      <div class="img-wrap">${p.image?`<img src="${p.image}" alt="">`:'<span class="no-img">📦</span>'}</div>
+      <div class="card-body">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+          <span class="card-name">${escHtml(p.name)}</span>
+          <span class="badge badge-new" style="font-size:10px;white-space:nowrap">${escHtml(p.category)}</span>
+        </div>
+        <div class="card-spec">${escHtml(p.spec||'')}</div>
+        <div class="card-price">${escHtml(p.price||'0')} <span style="font-size:11px;color:#78909c">/${escHtml(p.unit||'pcs')}</span></div>
+        <div class="card-moq">MOQ: ${escHtml(p.moq||'-')}</div>
+        <div class="card-actions">
+          <button class="btn-secondary" onclick="openProductModal('${p.id}')">编辑</button>
+          <button class="btn-danger" onclick="deleteProduct('${p.id}')">删除</button>
+          <button class="${sel?'btn-warning':'btn-success'}" onclick="toggleSelect('${p.id}')">${sel?'取消选择':'加入报价'}</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+// ── Product Selection (for quote) ──
+let selectedProducts={};
+function getSelectedIds(){return Object.keys(selectedProducts);}
+function toggleSelect(id){
+  if(selectedProducts[id])delete selectedProducts[id];
+  else{const p=getProducts().find(x=>x.id===id);if(p)selectedProducts[id]={...p,qty:1,unitPrice:parseFloat(p.price)||0,discount:0};}
+  updateQuoteBadge();renderProducts();
+}
+function updateQuoteBadge(){
+  const n=Object.keys(selectedProducts).length;
+  const b=document.getElementById('quote-badge');
+  b.textContent=n;b.style.display=n?'flex':'none';
+}
+
+// ── Product Modal ──
+function openProductModal(id){
+  editingProductId=id||null;productImg=null;
+  const p=id?getProducts().find(x=>x.id===id):null;
+  document.getElementById('prod-modal-title').textContent=id?'编辑商品':'添加商品';
+  document.getElementById('pm-name').value=p?p.name:'';
+  document.getElementById('pm-cat').value=p?p.category:'睫毛';
+  document.getElementById('pm-spec').value=p?p.spec:'';
+  document.getElementById('pm-sku').value=p?p.sku:'';
+  document.getElementById('pm-price').value=p?p.price:'';
+  document.getElementById('pm-unit').value=p?p.unit:'';
+  document.getElementById('pm-moq').value=p?p.moq:'';
+  document.getElementById('pm-note').value=p?p.note:'';
+  const prev=document.getElementById('img-preview');
+  const dropTxt=document.getElementById('img-drop-text');
+  if(p&&p.image){prev.src=p.image;prev.style.display='block';dropTxt.style.display='none';productImg=p.image;}
+  else{prev.style.display='none';dropTxt.style.display='block';}
+  document.getElementById('modal-product').classList.add('active');
+}
+function saveProduct(){
+  const name=document.getElementById('pm-name').value.trim();
+  if(!name){alert('请输入商品名称');return;}
+  const prods=getProducts();
+  const obj={id:editingProductId||uid(),name,category:document.getElementById('pm-cat').value,
+    spec:document.getElementById('pm-spec').value,sku:document.getElementById('pm-sku').value,
+    price:document.getElementById('pm-price').value,unit:document.getElementById('pm-unit').value,
+    moq:document.getElementById('pm-moq').value,note:document.getElementById('pm-note').value,
+    image:productImg||null};
+  if(editingProductId){const i=prods.findIndex(x=>x.id===editingProductId);if(i>=0)prods[i]=obj;}
+  else prods.push(obj);
+  saveProducts(prods);closeModal('modal-product');renderProducts();
+}
+function deleteProduct(id){
+  if(!confirm('确定删除该商品？'))return;
+  saveProducts(getProducts().filter(x=>x.id!==id));
+  delete selectedProducts[id];updateQuoteBadge();renderProducts();
+}
+
+// ── Image Upload ──
+function imgFileChange(e){
+  const f=e.target.files[0];if(!f)return;
+  if(f.size>2*1024*1024){alert('图片不能超过2MB');return;}
+  const r=new FileReader();r.onload=ev=>{setImgPreview(ev.target.result);};r.readAsDataURL(f);
+}
+function setImgPreview(src){
+  productImg=src;
+  const prev=document.getElementById('img-preview');
+  prev.src=src;prev.style.display='block';
+  document.getElementById('img-drop-text').style.display='none';
+}
+function imgDragOver(e){e.preventDefault();document.getElementById('img-drop').classList.add('dragover');}
+function imgDrop(e){
+  e.preventDefault();document.getElementById('img-drop').classList.remove('dragover');
+  const f=e.dataTransfer.files[0];if(!f||!f.type.startsWith('image/'))return;
+  if(f.size>2*1024*1024){alert('图片不能超过2MB');return;}
+  const r=new FileReader();r.onload=ev=>{setImgPreview(ev.target.result);};r.readAsDataURL(f);
+}
+// ── Inquiries ──
+const INQ_STATUSES=['全部','新询盘','已报价','已成交','已关闭'];
+let activeInqStatus='全部';
+let editingInquiryId=null;
+
+function getInquiries(){return ls(KEY_INQUIRIES)||[]}
+function saveInquiries(arr){lss(KEY_INQUIRIES,arr)}
+
+function renderInqStatusChips(){
+  const el=document.getElementById('inq-status-chips');
+  el.innerHTML=INQ_STATUSES.map(s=>`<span class="chip${activeInqStatus===s?' active':''}" onclick="setInqStatus('${s}')">${s}</span>`).join('');
+}
+function setInqStatus(s){activeInqStatus=s;renderInquiries();}
+
+const INQ_BADGE_MAP={新询盘:'badge-new',已报价:'badge-quoted',已成交:'badge-won',已关闭:'badge-closed'};
+
+function renderInquiries(){
+  renderInqStatusChips();
+  const search=(document.getElementById('inq-search').value||'').toLowerCase();
+  let arr=getInquiries();
+  if(activeInqStatus!=='全部')arr=arr.filter(x=>x.status===activeInqStatus);
+  if(search)arr=arr.filter(x=>(x.name+x.company+x.country).toLowerCase().includes(search));
+  const tbody=document.getElementById('inquiry-tbody');
+  if(!arr.length){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:#78909c;padding:30px">暂无询盘记录</td></tr>';return;}
+  tbody.innerHTML=arr.map(x=>{
+    const bc=INQ_BADGE_MAP[x.status]||'badge-new';
+    return `<tr>
+      <td>${x.date||''}</td>
+      <td>${escHtml(x.name)}</td>
+      <td>${escHtml(x.company||'')}</td>
+      <td>${escHtml(x.country||'')}</td>
+      <td>${escHtml(x.contact||'')}</td>
+      <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escHtml(x.products||'')}">${escHtml(x.products||'')}</td>
+      <td><span class="badge ${bc}">${escHtml(x.status)}</span></td>
+      <td style="white-space:nowrap">
+        <button class="btn-secondary" style="padding:4px 8px;font-size:12px;margin-right:4px" onclick="openInquiryModal('${x.id}')">编辑</button>
+        <button class="btn-danger" style="padding:4px 8px;font-size:12px;margin-right:4px" onclick="deleteInquiry('${x.id}')">删除</button>
+        <button class="btn-primary" style="padding:4px 8px;font-size:12px" onclick="quoteFromInquiry('${x.id}')">生成报价</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function openInquiryModal(id){
+  editingInquiryId=id||null;
+  const x=id?getInquiries().find(i=>i.id===id):null;
+  document.getElementById('inq-modal-title').textContent=id?'编辑询盘':'新增询盘';
+  document.getElementById('im-name').value=x?x.name:'';
+  document.getElementById('im-company').value=x?x.company:'';
+  document.getElementById('im-country').value=x?x.country:'';
+  document.getElementById('im-contact').value=x?x.contact:'';
+  document.getElementById('im-source').value=x?x.source:'WhatsApp';
+  document.getElementById('im-status').value=x?x.status:'新询盘';
+  document.getElementById('im-products').value=x?x.products:'';
+  document.getElementById('im-qty').value=x?x.qty:'';
+  document.getElementById('im-budget').value=x?x.budget:'';
+  document.getElementById('im-notes').value=x?x.notes:'';
+  document.getElementById('modal-inquiry').classList.add('active');
+}
+function saveInquiry(){
+  const name=document.getElementById('im-name').value.trim();
+  if(!name){alert('请输入客户姓名');return;}
+  const arr=getInquiries();
+  const obj={id:editingInquiryId||uid(),name,company:document.getElementById('im-company').value,
+    country:document.getElementById('im-country').value,contact:document.getElementById('im-contact').value,
+    source:document.getElementById('im-source').value,status:document.getElementById('im-status').value,
+    products:document.getElementById('im-products').value,qty:document.getElementById('im-qty').value,
+    budget:document.getElementById('im-budget').value,notes:document.getElementById('im-notes').value,
+    date:editingInquiryId?(arr.find(x=>x.id===editingInquiryId)||{}).date||today():today()};
+  if(editingInquiryId){const i=arr.findIndex(x=>x.id===editingInquiryId);if(i>=0)arr[i]=obj;}
+  else arr.unshift(obj);
+  saveInquiries(arr);closeModal('modal-inquiry');renderInquiries();
+}
+function deleteInquiry(id){if(!confirm('确定删除该询盘？'))return;saveInquiries(getInquiries().filter(x=>x.id!==id));renderInquiries();}
+// ── Quote from Inquiry ──
+let quoteInquiryId=null;
+function quoteFromInquiry(id){
+  const x=getInquiries().find(i=>i.id===id);
+  if(!x)return;
+  quoteInquiryId=id;
+  document.getElementById('q-client-name').value=x.name||'';
+  document.getElementById('q-client-company').value=x.company||'';
+  document.getElementById('q-client-country').value=x.country||'';
+  document.getElementById('q-client-contact').value=x.contact||'';
+  document.getElementById('btn-save-inq').style.display='';
+  switchTab('quote');
+}
+function saveQuoteToInquiry(){
+  if(!quoteInquiryId)return;
+  const arr=getInquiries();
+  const i=arr.findIndex(x=>x.id===quoteInquiryId);
+  if(i>=0){arr[i].status='已报价';saveInquiries(arr);}
+  alert('已更新询盘状态为：已报价');
+  renderInquiries();
+}
+
+// ── Quote ──
+function initQuote(){
+  document.getElementById('q-no').value='QT-'+Date.now().toString().slice(-6);
+  document.getElementById('q-date').value=today();
+  document.getElementById('q-valid').value='30';
+}
+
+function renderQuote(){
+  const ids=Object.keys(selectedProducts);
+  const tbody=document.getElementById('quote-tbody');
+  const tbl=document.getElementById('quote-items-table');
+  const empty=document.getElementById('quote-empty');
+  if(!ids.length){tbl.style.display='none';empty.style.display='block';calcQuoteSummary();return;}
+  tbl.style.display='';empty.style.display='none';
+  tbody.innerHTML=ids.map(id=>{
+    const it=selectedProducts[id];
+    return `<tr>
+      <td>${escHtml(it.name)}<br><span style="font-size:11px;color:#78909c">${escHtml(it.spec||'')}</span></td>
+      <td><input type="number" min="1" value="${it.qty}" style="width:60px" onchange="updateQuoteItem('${id}','qty',this.value)"></td>
+      <td><input type="number" min="0" step="0.01" value="${it.unitPrice}" style="width:80px" onchange="updateQuoteItem('${id}','unitPrice',this.value)"></td>
+      <td><input type="number" min="0" max="100" value="${it.discount}" style="width:60px" onchange="updateQuoteItem('${id}','discount',this.value)"></td>
+      <td id="amt-${id}">${fmt(it.qty*it.unitPrice*(1-it.discount/100))}</td>
+      <td><button class="btn-danger" style="padding:3px 7px;font-size:12px" onclick="removeQuoteItem('${id}')">✕</button></td>
+    </tr>`;
+  }).join('');
+  calcQuoteSummary();
+}
+function updateQuoteItem(id,field,val){
+  if(!selectedProducts[id])return;
+  selectedProducts[id][field]=parseFloat(val)||0;
+  const it=selectedProducts[id];
+  const amt=it.qty*it.unitPrice*(1-it.discount/100);
+  const el=document.getElementById('amt-'+id);
+  if(el)el.textContent=fmt(amt);
+  calcQuoteSummary();
+}
+function removeQuoteItem(id){
+  delete selectedProducts[id];updateQuoteBadge();renderProducts();renderQuote();
+}
+function calcQuoteSummary(){
+  const sub=Object.values(selectedProducts).reduce((s,it)=>s+it.qty*it.unitPrice*(1-it.discount/100),0);
+  const ship=parseFloat(document.getElementById('q-shipping').value)||0;
+  const cur=document.getElementById('q-currency')?document.getElementById('q-currency').value:'';
+  document.getElementById('q-subtotal').textContent=cur+' '+fmt(sub);
+  document.getElementById('q-total').textContent=cur+' '+fmt(sub+ship);
+}
+// ── Supplier ──
+function loadSupplier(){
+  const s=ls(KEY_SUPPLIER)||{};
+  document.getElementById('sup-name').value=s.name||'';
+  document.getElementById('sup-addr').value=s.addr||'';
+  document.getElementById('sup-contact').value=s.contact||'';
+  document.getElementById('sup-tel').value=s.tel||'';
+  document.getElementById('sup-email').value=s.email||'';
+}
+function saveSupplier(){
+  lss(KEY_SUPPLIER,{
+    name:document.getElementById('sup-name').value,
+    addr:document.getElementById('sup-addr').value,
+    contact:document.getElementById('sup-contact').value,
+    tel:document.getElementById('sup-tel').value,
+    email:document.getElementById('sup-email').value
+  });
+  alert('供应商信息已保存');
+}
+
+// ── Print Preview ──
+function generatePreview(){
+  const ids=Object.keys(selectedProducts);
+  if(!ids.length){alert('请先选择商品');return;}
+  const sup=ls(KEY_SUPPLIER)||{};
+  const cur=document.getElementById('q-currency').value;
+  const ship=parseFloat(document.getElementById('q-shipping').value)||0;
+  const sub=Object.values(selectedProducts).reduce((s,it)=>s+it.qty*it.unitPrice*(1-it.discount/100),0);
+  const total=sub+ship;
+  const clientName=document.getElementById('q-client-name').value;
+  const clientCompany=document.getElementById('q-client-company').value;
+  const clientCountry=document.getElementById('q-client-country').value;
+  const clientContact=document.getElementById('q-client-contact').value;
+  const qNo=document.getElementById('q-no').value||('QT-'+Date.now().toString().slice(-6));
+  const qDate=document.getElementById('q-date').value;
+  const qValid=document.getElementById('q-valid').value;
+  const payment=document.getElementById('q-payment').value;
+  const lead=document.getElementById('q-lead').value;
+  const incoterm=document.getElementById('q-incoterm').value;
+  const notes=document.getElementById('q-notes').value;
+  const rows=ids.map((id,i)=>{
+    const it=selectedProducts[id];
+    const amt=it.qty*it.unitPrice*(1-it.discount/100);
+    return `<tr>
+      <td style="text-align:center">${i+1}</td>
+      <td>${escHtml(it.name)}${it.spec?'<br><small style="color:#666">'+escHtml(it.spec)+'</small>':''}</td>
+      <td>${escHtml(it.sku||'-')}</td>
+      <td style="text-align:right">${fmt(it.unitPrice)}</td>
+      <td style="text-align:center">${it.qty}</td>
+      <td style="text-align:center">${it.discount?it.discount+'%':'-'}</td>
+      <td style="text-align:right">${cur} ${fmt(amt)}</td>
+    </tr>`;
+  }).join('');
+  const html=`
+  <div class="print-header">
+    <div>
+      <div class="print-title">QUOTATION</div>
+      <div style="font-size:13px;color:#555;margin-top:4px">报价单</div>
+    </div>
+    <div style="text-align:right;font-size:13px">
+      <div style="font-weight:700;font-size:15px">${escHtml(sup.name||'')}</div>
+      <div>${escHtml(sup.addr||'')}</div>
+      <div>${escHtml(sup.tel||'')}${sup.email?' | '+escHtml(sup.email):''}</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;font-size:13px">
+    <div style="background:#f7f8fc;border-radius:8px;padding:14px">
+      <div style="font-weight:700;margin-bottom:8px;color:#1a1a2e">收件方 / Bill To</div>
+      <div>${escHtml(clientName||'')}</div>
+      <div>${escHtml(clientCompany||'')}</div>
+      <div>${escHtml(clientCountry||'')}</div>
+      <div>${escHtml(clientContact||'')}</div>
+    </div>
+    <div style="background:#f7f8fc;border-radius:8px;padding:14px">
+      <div style="font-weight:700;margin-bottom:8px;color:#1a1a2e">报价信息</div>
+      <div><b>报价单号：</b>${escHtml(qNo)}</div>
+      <div><b>日期：</b>${escHtml(qDate)}</div>
+      <div><b>有效期：</b>${escHtml(qValid)} 天</div>
+      <div><b>贸易条款：</b>${escHtml(incoterm)}</div>
+    </div>
+  </div>
+  <table class="print-table">
+    <thead><tr>
+      <th style="width:36px">#</th>
+      <th>商品描述</th>
+      <th style="width:90px">SKU</th>
+      <th style="width:80px;text-align:right">单价(${cur})</th>
+      <th style="width:60px;text-align:center">数量</th>
+      <th style="width:60px;text-align:center">折扣</th>
+      <th style="width:100px;text-align:right">小计</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table>
+  <div class="print-totals">
+    <table>
+      <tr><td>小计</td><td style="text-align:right">${cur} ${fmt(sub)}</td></tr>
+      <tr><td>运费</td><td style="text-align:right">${cur} ${fmt(ship)}</td></tr>
+      <tr class="grand"><td>总计</td><td style="text-align:right">${cur} ${fmt(total)}</td></tr>
+    </table>
+  </div>
+  <div style="clear:both"></div>
+  <div style="margin-top:24px;font-size:13px;background:#f7f8fc;border-radius:8px;padding:14px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div><b>付款条件：</b>${escHtml(payment||'-')}</div>
+      <div><b>交货期：</b>${escHtml(lead||'-')}</div>
+    </div>
+    ${notes?'<div style="margin-top:8px"><b>备注：</b>'+escHtml(notes)+'</div>':''}
+  </div>
+  <div class="print-footer">
+    <div>本报价单有效期 ${escHtml(qValid)} 天，如有疑问请联系我们。</div>
+    <div style="margin-top:4px">${escHtml(sup.contact||'')}${sup.tel?' | Tel: '+escHtml(sup.tel):''}</div>
+  </div>`;
+  document.getElementById('print-doc').innerHTML=html;
+  document.getElementById('print-overlay').classList.add('active');
+}
+function closePrint(){document.getElementById('print-overlay').classList.remove('active');}
+
+// ── Admin ──
+function updateAdminBadge(){
+  const pending=getUsers().filter(u=>u.status==='pending').length;
+  const b=document.getElementById('admin-badge');
+  b.textContent=pending;b.style.display=pending?'flex':'none';
+}
+function renderAdmin(){
+  const users=getUsers();
+  const tbody=document.getElementById('admin-tbody');
+  if(!users.length){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:#78909c;padding:20px">暂无注册用户</td></tr>';return;}
+  tbody.innerHTML=users.map(u=>{
+    const bc=u.status==='approved'?'badge-approved':u.status==='rejected'?'badge-rejected':'badge-pending';
+    const statusLabel=u.status==='approved'?'已批准':u.status==='rejected'?'已拒绝':'待审核';
+    return `<tr>
+      <td>${escHtml(u.username)}</td>
+      <td>${escHtml(u.company||'')}</td>
+      <td>${escHtml(u.email||'')}</td>
+      <td>${escHtml(u.contact||'')}</td>
+      <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escHtml(u.reason||'')}">${escHtml(u.reason||'-')}</td>
+      <td>${(u.createdAt||'').slice(0,10)}</td>
+      <td><span class="badge ${bc}">${statusLabel}</span></td>
+      <td style="white-space:nowrap">
+        ${u.status!=='approved'?`<button class="btn-success" style="padding:4px 8px;font-size:12px;margin-right:4px" onclick="setUserStatus('${u.id}','approved')">批准</button>`:''}
+        ${u.status!=='rejected'?`<button class="btn-danger" style="padding:4px 8px;font-size:12px" onclick="setUserStatus('${u.id}','rejected')">拒绝</button>`:''}
+      </td>
+    </tr>`;
+  }).join('');
+}
+function setUserStatus(id,status){
+  const users=getUsers();
+  const i=users.findIndex(u=>u.id===id);
+  if(i>=0){users[i].status=status;saveUsers(users);}
+  updateAdminBadge();renderAdmin();
+}
+// ── Tab switch (admin render hook) ──
+function switchTab(name){
+  ['catalog','inquiry','quote','admin'].forEach(t=>{
+    const btn=document.getElementById('tab-'+t);
+    const content=document.getElementById('tab-content-'+t);
+    if(btn)btn.classList.toggle('active',t===name);
+    if(content)content.classList.toggle('active',t===name);
+  });
+  if(name==='quote')renderQuote();
+  if(name==='admin')renderAdmin();
+}
+
+// ── Modal helpers ──
+function closeModal(id){document.getElementById(id).classList.remove('active');}
+document.addEventListener('click',function(e){
+  ['modal-product','modal-inquiry'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&e.target===el)el.classList.remove('active');
+  });
+});
+
+// ── Boot ──
+(function(){
+  const sess=getSession();
+  if(!sess){showView('auth');showLogin();return;}
+  if(sess.id==='admin'){initApp(ADMIN);return;}
+  const users=getUsers();
+  const found=users.find(u=>u.id===sess.id);
+  if(!found){localStorage.removeItem(KEY_SESSION);showView('auth');showLogin();return;}
+  if(found.status==='pending'){showView('pending');return;}
+  if(found.status==='rejected'){showView('rejected');return;}
+  initApp(found);
+})();
+</script>
+</body>
+</html>

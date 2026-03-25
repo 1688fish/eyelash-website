@@ -356,8 +356,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;min-h
   <div class="print-inner">
     <div class="print-topbar">
       <div>
-        <div class="preview-logo">EYELASH <span>FACTORY</span></div>
-        <div style="font-size:0.8rem;color:#888;margin-top:3px">Premium Manufacturer</div>
+        <div class="preview-logo">📦 <span id="pv-supplier-name">供应商</span></div>
+        <div style="font-size:0.8rem;color:#888;margin-top:3px" id="pv-supplier-sub"></div>
       </div>
       <div style="display:flex;gap:10px;align-items:center" class="no-print">
         <button class="btn btn-success" onclick="window.print()">🖨 打印/PDF</button>
@@ -371,7 +371,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;min-h
       </div>
     </div>
     <div class="pv-parties">
-      <div class="pv-party"><h4 id="pv-from-lbl">供应商</h4><p>Premium Eyelash Factory<br>Guangzhou, China<br>sales@eyelashfactory.com</p></div>
+      <div class="pv-party"><h4 id="pv-from-lbl">供应商</h4><p id="pv-supplier-info"></p></div>
       <div class="pv-party"><h4 id="pv-to-lbl">买方</h4><p id="pv-client"></p></div>
     </div>
     <table class="pv-table">
